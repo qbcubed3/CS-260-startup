@@ -9,9 +9,39 @@
 
   <body>
     <h1> Happiness Tracker</h1>
-    <ul>
-        <li><a href="homepage.html">Home Page</a></li>
-        <li><a href="index.html">Login</a></li>
-    </ul>
-    <textarea></textarea>
+    <nav>
+        <ul>
+            <li><a href="homepage.html">Home Page</a></li>
+            <li><a href="index.html">Login</a></li> 
+            <li><a href="stats.html">View your Stats</a></li>
+        </ul>
+    </nav>
+    <hr />
+    
+    <h2>What did you do today?</h2>
+    <form>
+        <div>
+            <input type="checkbox" id="Work" name="work" value="work" for="work">Work
+            <input type="checkbox" id="ate breakfast" name="ate breakfast" value="ate breakfast" for="ate breakfast">Ate Breakfast
+            <input type="checkbox" id="ate Lunch" name="ate Lunch" value="ate Lunch" for="ate Lunch">Ate Lunch
+            <input type="checkbox" id="ate Dinner" name="ate Dinner" value="ate Dinner" for="ate Dinner">Ate Dinner
+        </div>
+        <div>
+            <input type="checkbox" id="8hours" name="8hours" value="8hours" for="8hours">Slept 8 Hours
+            <input type="checkbox" id="7hours" name="7hours" value="7hours" for="7hours">Slept Less than 8 hours
+            <input type="checkbox" id="ate breakfast" name="ate breakfast" value="ate breakfast" for="ate breakfast">Add More Later
+        </div>
+        <div>
+            <input type="text" id="addNew" placeholder="Add a New Activity">
+            <button class="my-button" onclick="alert('This is not implemented yet!')">Add</button>
+        </div>
+    </form>
   </body>
+
+  <footer>
+    <hr />
+    <div> Made by Ben Christensen</div>
+    <a href="https://github.com/qbcubed3/startup">My Github</a>
+  </footer>
+
+</html>
