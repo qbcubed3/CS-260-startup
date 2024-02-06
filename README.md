@@ -40,12 +40,19 @@ Statistics page after being populated with enough data to display statistics.
 For this part of the project I built out the basic HTML for the webpage
 
 **HTML** - for html I created 4 different pages, those being the login page, home page, statistics, and daily survey. I used only HTML and just created the basic content of each of these pages. I used BODY, NAV, MAIN, HEADER, and FOOTER within my HTML and used them correctly in order to organize my webpage better.
+
 **Links** - I put the links to all the other pages in my website at the top of the page and then in the how to get started part of the homepage I put links to all the parts I was referencing within that paragraph.
+
 **Text Content** - I populated each of the pages with the proper text content, putting what I could inside of the website at the time, and then describing what I couldn't do now but will do later.
+
 **3rd Party Service Calls** - I put a placeholder for where I am going to be storing data in the database and then also fetching data from the database.
+
 **Images** - I added an image of a smiley face as the image on a tab and then also added a smiley face at the bottom of each footer.
+
 **Login PlaceHolder** - I added both a text box for the username and password and then a submit button to login. I also added a username placeholder at the top of the page, which I will move once I apply CSS to my project and can move it to the top right more easily.
+
 **Database** - I left a placeholder at the end of the survey section so that I can put all that data from the survey into the database and then also there is nothing in the statistics page yet because that is one big placeholder because all that will come from the data from the database.
+
 **WebSocket** - The statistics page also has a placeholder from this because websocket will be used to update the statistics and then also ping peope to remind them to do the daily survey.
 
 
