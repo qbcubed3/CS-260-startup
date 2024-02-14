@@ -10,12 +10,13 @@
 
   <body>
     <header>
-      <div>
+      <div class="header">
+        <img src="smiley.png" width="50" height="50">
         <h1>Happiness Tracker</h1>
         <span>username</span>
       </div>
         <nav class="navigation">
-          <ul>
+          <ul class="navlist">
             <li class="navpoints"><a href="survey.html"> Daily Survey! </a></li>
             <li class="navpoints"><a href="homepage.html">Homepage</a></li>
             <li class="navpoints"><a href="stats.html">View your Stats</a></li>
@@ -23,24 +24,25 @@
         </nav>
         <hr />
     </header>
+    <main>
+      <h2> Login: </h2>
+      <label for="username">Username: </label>
+      <input type="text" id="username" name="username" placeholder="Text">
 
-    <h2> Login: </h2>
-    <label for="username">Username: </label>
-    <input type="text" id="username" name="username" placeholder="Text">
+      <label for="password"><br>Password:  </label>
+      <input type="text" id="username" name="username" placeHolder="Text">
 
-    <label for="password"><br>Password:  </label>
-    <input type="text" id="username" name="username" placeHolder="Text">
+      <br>
+      <button class="my-button" onclick="alert('This is not implemented yet!')">Login</button>
+    </main>
 
-    <br>
-    <button class="my-button" onclick="alert('This is not implemented yet!')">Login</button>
+    <footer>
+      <hr />
+      <div> Made by Ben Christensen</div>
+      <a href="https://github.com/qbcubed3/startup">My Github</a>
+      <br>
+      <img src="smiley.png" alt="you when you use my website" width="75" height="75">
+    </footer>
   </body>
-
-  <footer>
-    <hr />
-    <div> Made by Ben Christensen</div>
-    <a href="https://github.com/qbcubed3/startup">My Github</a>
-    <br>
-    <img src="smiley.png" alt="you when you use my website" width="75" height="75">
-  </footer>
 
 </html>
