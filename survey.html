@@ -9,48 +9,51 @@
   </head>
 
   <body>
-    <div class="header">
-      <img src="smiley.png" width="50" height="50">
-      <h1>Happiness Tracker</h1>
-      <span>username</span>
-    </div>
-    <nav class="navigation">
+    <header>
+      <div class="header">
+        <img src="smiley.png" width="50" height="50">
+        <h1>Happiness Tracker</h1>
+        <span>username</span>
+      </div>
+    </header>
+
+    <main>
+      <nav class="navigation">
         <ul class="navlist">
           <li><a href="index.html">Login</a></li>
           <li><a href="survey.html"> Daily Survey! </a></li>
           <li><a href="homepage.html">Homepage</a></li>
           <li><a href="stats.html">View your Stats</a></li>
         </ul>
-    </nav>
-    <hr />
+      </nav>
+      <h2>Survey</h2>
+      <h4>What did you do today?</h4>
+      <form>
+          <div>
+              <input type="checkbox" id="Work" name="work" value="work" for="work">Work
+              <input type="checkbox" id="ate breakfast" name="ate breakfast" value="ate breakfast" for="ate breakfast">Ate Breakfast
+              <input type="checkbox" id="ate Lunch" name="ate Lunch" value="ate Lunch" for="ate Lunch">Ate Lunch
+              <input type="checkbox" id="ate Dinner" name="ate Dinner" value="ate Dinner" for="ate Dinner">Ate Dinner
+          </div>
+          <div>
+              <input type="checkbox" id="8hours" name="8hours" value="8hours" for="8hours">Slept 8 Hours
+              <input type="checkbox" id="7hours" name="7hours" value="7hours" for="7hours">Slept Less than 8 hours
+              <input type="checkbox" id="ate breakfast" name="ate breakfast" value="ate breakfast" for="ate breakfast">Add More Later
+          </div>
+          <div>
+              <input type="text" id="addNew" placeholder="Add a New Activity">
+              <button class="my-button" onclick="alert('This is not implemented yet!')">Add</button>
+          </div>
+      </form>
 
-    <h2>Survey</h2>
-    <h4>What did you do today?</h4>
-    <form>
-        <div>
-            <input type="checkbox" id="Work" name="work" value="work" for="work">Work
-            <input type="checkbox" id="ate breakfast" name="ate breakfast" value="ate breakfast" for="ate breakfast">Ate Breakfast
-            <input type="checkbox" id="ate Lunch" name="ate Lunch" value="ate Lunch" for="ate Lunch">Ate Lunch
-            <input type="checkbox" id="ate Dinner" name="ate Dinner" value="ate Dinner" for="ate Dinner">Ate Dinner
-        </div>
-        <div>
-            <input type="checkbox" id="8hours" name="8hours" value="8hours" for="8hours">Slept 8 Hours
-            <input type="checkbox" id="7hours" name="7hours" value="7hours" for="7hours">Slept Less than 8 hours
-            <input type="checkbox" id="ate breakfast" name="ate breakfast" value="ate breakfast" for="ate breakfast">Add More Later
-        </div>
-        <div>
-            <input type="text" id="addNew" placeholder="Add a New Activity">
-            <button class="my-button" onclick="alert('This is not implemented yet!')">Add</button>
-        </div>
-    </form>
+      <h4>On a Scale of 1-10, How Happy were you Today?</h4>
+      <input type="range" name="happiness" min="1" max="10" step="1" value="5">
+      <output for="happiness" id="selectedHapiness">use scripting to update number</output>
+      <br><br>
+      <button class="my-button" onclick="alert('This is not implemented yet')">Submit Survey</button>
 
-    <h4>On a Scale of 1-10, How Happy were you Today?</h4>
-    <input type="range" name="happiness" min="1" max="10" step="1" value="5">
-    <output for="happiness" id="selectedHapiness">use scripting to update number</output>
-    <br><br>
-    <button class="my-button" onclick="alert('This is not implemented yet')">Submit Survey</button>
-
-    <p>The data from here will be saved into a database</p>
+      <p>The data from here will be saved into a database</p>
+    </main>
   </body>
 
   <footer>
