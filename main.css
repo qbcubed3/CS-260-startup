@@ -2,9 +2,6 @@ body, html{
     width: 100%;
     margin: 0;
     background-color: lightgray;
-    align-items: stretch;
-    flex-direction: column;
-    flex-wrap:wrap;
 }
 
 .header{
@@ -27,18 +24,15 @@ body, html{
 
 .navigation{
     font-size: 20px;
-    flex: 1;
+    flex: .13;
+    flex-direction: column;
     background-color:rgb(165, 165, 165);
     width: 150px;
-    height: 70%;
+    height: 75vh;
     border-radius: 10px;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
-    position: relative;
     padding-top:5;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
 }
 
 .navlist{
@@ -46,15 +40,14 @@ body, html{
     padding: 0;
     margin: 2;
 }
-.navpoints a{
-    color: blue;
+.navlist li a{
+    color: rgb(0, 0, 0);
     text-decoration:none;
     padding: 0;
     margin: 2px;
-    padding-bottom: 2px;
 }
 
-.navpoints a:hover{
+.navlist li a:hover{
     animation: rainbow 1.5s infinite;
 }
 
@@ -62,6 +55,11 @@ main{
     flex: 0 0 auto;
     position: relative;
     flex-direction: row;
+    display: flex;
+}
+
+main div{
+    flex: 1;
 }
 
 @keyframes rainbow{
