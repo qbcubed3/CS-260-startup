@@ -6,6 +6,7 @@
     <title>Survey</title>
     <link rel="icon" href="smiley.png" />
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="survey.css">
   </head>
 
   <body>
@@ -26,9 +27,10 @@
           <li><a href="stats.html">View your Stats</a></li>
         </ul>
       </nav>
-      <h2>Survey</h2>
-      <h4>What did you do today?</h4>
-      <form>
+      <div class="survey">
+        <h2>Survey</h2>
+        <h4>What did you do today?</h4>
+        <form class="checkboxes">
           <div>
               <input type="checkbox" id="Work" name="work" value="work" for="work">Work
               <input type="checkbox" id="ate breakfast" name="ate breakfast" value="ate breakfast" for="ate breakfast">Ate Breakfast
@@ -44,15 +46,16 @@
               <input type="text" id="addNew" placeholder="Add a New Activity">
               <button class="my-button" onclick="alert('This is not implemented yet!')">Add</button>
           </div>
-      </form>
 
-      <h4>On a Scale of 1-10, How Happy were you Today?</h4>
-      <input type="range" name="happiness" min="1" max="10" step="1" value="5">
-      <output for="happiness" id="selectedHapiness">use scripting to update number</output>
-      <br><br>
-      <button class="my-button" onclick="alert('This is not implemented yet')">Submit Survey</button>
+          <h4>On a Scale of 1-10, How Happy were you Today?</h4>
+          <input type="range" name="happiness" min="1" max="10" step="1" value="5">
+          <output for="happiness" id="selectedHapiness">use scripting to update number</output>
+          <br><br>
+          <button class="my-button" onclick="alert('This is not implemented yet')">Submit Survey</button>
 
-      <p>The data from here will be saved into a database</p>
+          <p>The data from here will be saved into a database</p>
+        </form>
+      </div>
     </main>
   </body>
 

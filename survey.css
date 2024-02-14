@@ -1,3 +1,14 @@
-main form{
+.survey{
+    display: flex;
     flex-direction: column;
+    border: 2px black;
+}
+
+.survey h2{
+    display:flex;
+    border-bottom: 2px solid black;
+}
+
+.survey .checkboxes{
+    list-style-position: inside;
 }
