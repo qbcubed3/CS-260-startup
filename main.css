@@ -63,6 +63,24 @@ main div{
     padding-left: 10px;
 }
 
+.login h2{
+    border-bottom: 2px solid black;
+}
+
+.login input[type="text"]{
+    margin: 2px;
+}
+
+.login input[type="text"]:focus {
+    outline: none;
+    border-color: blue;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);   
+}
+
+.login button:hover{
+    background-color:cadetblue;
+}
+
 @keyframes rainbow{
     0% {color: blue;}
     16% {color: indigo;}
