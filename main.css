@@ -55,6 +55,7 @@ main{
     position: relative;
     flex-direction: row;
     display: flex;
+    width: 100vw;
     padding-bottom: 5px;
     border-bottom: 2px solid darkolivegreen;
 }

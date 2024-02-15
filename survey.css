@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     border: 2px black;
+    width: 70vw;
 }
 
 .survey h2{
@@ -12,4 +13,25 @@
 .survey .checkboxes{
     list-style-position: inside;
 }
+
+.survey input[type="text"]:focus{
+    outline: none;
+    border-color: blue;
+    box-shadow: 0 0 5px blue; 
+}
+
+.survey input[type="checkbox"]:hover{
+    box-shadow: 0 0 5px blue;
+}
+
+.survey h4{
+    border-bottom: 1px solid darkolivegreen;
+}
+
+.survey input[type="range"]{
+    background-color: darkolivegreen;
+    width: 150px;
+    accent-color: darkolivegreen;
+}
+
 
