@@ -55,4 +55,18 @@ For this part of the project I built out the basic HTML for the webpage
 
 **WebSocket** - The statistics page also has a placeholder from this because websocket will be used to update the statistics and then also ping peope to remind them to do the daily survey.
 
+### CSS Deliverable
+
+**Properly Styled CSS header, footer, main** - Done
+
+**Properly Styled CSS Navigation Elements** - Put at the side in a navigation menu, and change when hovered over
+
+**Responsive to Window Resizing** - All elements change to fit the size of the current window
+
+**Properly Styled CSS Application Elements** - Used CSS to change the look of checkboxes, text boxes, range meter, etc.
+
+**Properly Styled CSS Text Elements** - Used CSS to make text look cleaner and changed color in some spots
+
+**Properly styled CSS Application Images** - used CSS in order to put images where I want them to be on my webpage using flexboxes.
+
 
