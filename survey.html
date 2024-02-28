@@ -7,6 +7,7 @@
     <link rel="icon" href="smiley.png" />
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="survey.css">
+    <script src="survey.js" defer></script>
   </head>
 
   <body>
@@ -30,23 +31,13 @@
       <div class="survey">
         <h2>Survey</h2>
         <h4>What did you do today?</h4>
-        <form class="checkboxes">
-          <div>
-              <input type="checkbox" id="Work" name="work" value="work" for="work">Work
-              <input type="checkbox" id="ate breakfast" name="ate breakfast" value="ate breakfast" for="ate breakfast">Ate Breakfast
-              <input type="checkbox" id="ate Lunch" name="ate Lunch" value="ate Lunch" for="ate Lunch">Ate Lunch
-              <input type="checkbox" id="ate Dinner" name="ate Dinner" value="ate Dinner" for="ate Dinner">Ate Dinner
-          </div>
-          <div>
-              <input type="checkbox" id="8hours" name="8hours" value="8hours" for="8hours">Slept 8 Hours
-              <input type="checkbox" id="7hours" name="7hours" value="7hours" for="7hours">Slept Less than 8 hours
-              <input type="checkbox" id="ate breakfast" name="ate breakfast" value="ate breakfast" for="ate breakfast">Add More Later
-          </div>
-          <div>
-              <input type="text" id="addNew" placeholder="Add a New Activity">
-              <button class="my-button" onclick="alert('This is not implemented yet!')">Add</button>
-          </div>
-
+        <div id="checkboxes">
+        </div>
+        <div>
+            <input type="text" id="newItem" placeholder="Add a New Activity">
+            <button class="my-button" id="addNew">Add</button>
+        </div>
+        <form class="ranges">
           <h4>On a Scale of 1-10, How Happy were you Today?</h4>
           <input type="range" name="happiness" min="1" max="10" step="1" value="5">
           <output for="happiness" id="selectedHapiness">use scripting to update number</output>
