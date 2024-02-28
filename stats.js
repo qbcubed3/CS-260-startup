@@ -1,62 +1,62 @@
 const trackings = {
     "2024-02-28": {
-      key1: false,
-      key2: true,
-      key3: false,
+      Worked: false,
+      Had_Breakfast: true,
+      Took_a_Walk: false,
       happiness: Math.floor(Math.random() * 10) + 1,
     },
     "2024-02-29": {
-      key1: true,
-      key2: true,
-      key3: false,
+      Worked: true,
+      Had_Breakfast: true,
+      Took_a_Walk: false,
       happiness: Math.floor(Math.random() * 10) + 1,
     },
     "2024-03-01": {
-      key1: false,
-      key2: true,
-      key3: false,
+      Worked: false,
+      Had_Breakfast: true,
+      Took_a_Walk: false,
       happiness: Math.floor(Math.random() * 10) + 1,
     },
     "2024-04-02": {
-      key1: false,
-      key2: true,
-      key3: false,
+      Worked: false,
+      Had_Breakfast: true,
+      Took_a_Walk: false,
       happiness: Math.floor(Math.random() * 10) + 1,
     },
     "2024-04-03": {
-      key1: true,
-      key2: false,
-      key3: true,
+      Worked: true,
+      Had_Breakfast: false,
+      Took_a_Walk: true,
       happiness: Math.floor(Math.random() * 10) + 1,
     },
     "2024-04-04": {
-      key1: true,
-      key2: true,
-      key3: true,
+      Worked: true,
+      Had_Breakfast: true,
+      Took_a_Walk: true,
       happiness: Math.floor(Math.random() * 10) + 1,
     },
     "2024-04-05": {
-      key1: false,
-      key2: false,
-      key3: false,
+      Worked: false,
+      Had_Breakfast: false,
+      Took_a_Walk: false,
       happiness: Math.floor(Math.random() * 10) + 1,
     },
     "2024-04-06": {
-      key1: true,
-      key2: false,
-      key3: true,
+      Worked: true,
+      Had_Breakfast: false,
+      Took_a_Walk: true,
       happiness: Math.floor(Math.random() * 10) + 1,
     },
     "2024-04-07": {
-      key1: false,
-      key2: false,
-      key3: true,
+      Worked: false,
+      Had_Breakfast: false,
+      Took_a_Walk: true,
       happiness: Math.floor(Math.random() * 10) + 1,
     },
     "2024-04-08": {
-      key1: true,
-      key2: true,
-      key3: true,
+      Worked: true,
+      Had_Breakfast: true,
+      Took_a_Walk: true,
       happiness: Math.floor(Math.random() * 10) + 1,
     },
   };
@@ -112,19 +112,37 @@ var ratioData = getRatios();
 var graphLabels = getLabels();
 
 const graphData = {
-    labels: graphLabels,
-    datasets: [{
-        label:'Chart', 
-        data: ratioData,
-        backgroundColor: ['red', 'green', 'blue']
-    }]
+    
 }
 
 console.log(ratioData);
-const chart = document.getElementById('barGraph').getContext('2d');
+const chart = document.getElementById('barGraph');
 
-var myChart = new Chart(chart, {
+new Chart(chart, {
     type: 'bar',
-    data: ratioData
-})
+    data: {
+        labels: graphLabels,
+        datasets: [{
+        label:'Average Happiness for Each Activity', 
+        data: ratioData,
+        borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        animations: {
+            tension: {
+              duration: 1000,
+              easing: 'linear',
+              from: 1,
+              to: 0,
+              loop: false
+            }
+        }
+    }
+});
 
