@@ -69,4 +69,16 @@ For this part of the project I built out the basic HTML for the webpage
 
 **Properly styled CSS Application Images** - used CSS in order to put images where I want them to be on my webpage using flexboxes.
 
+### Javascript Deliverable
+
+**Support for Future Logins** - Done, moves the webpage to the survey page once logged in.
+
+**Support for Future Database** - Currently tracks the results from each survey in local storage. This will be tracked in database storage eventually
+
+**Support for Future Websocket** - Has a popup that reminds the user to do the survey. Right now it goes at random times, but Websocket will be used to make it appear at the right time.
+
+**Application Logic** - The survey is fully useable with selectable options and a slideable rank. This data is parsed and saved.
+
+
+
 

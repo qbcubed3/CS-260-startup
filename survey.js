@@ -124,7 +124,8 @@ function submitSurvey() {
         key = checks[i].id;
         newDay[key] = checks[i].checked;
     }
-
+    newDay['happiness'] = document.getElementById('happinessRange').value;
+    
     trackings[date] = newDay;
 
     console.log(trackings);
