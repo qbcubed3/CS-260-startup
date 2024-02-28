@@ -77,7 +77,7 @@ For this part of the project I built out the basic HTML for the webpage
 
 **Support for Future Websocket** - Has a popup that reminds the user to do the survey. Right now it goes at random times, but Websocket will be used to make it appear at the right time.
 
-**Application Logic** - The survey is fully useable with selectable options and a slideable rank. This data is parsed and saved.
+**Application Logic** - The survey is fully useable with selectable options and a slideable rank. This data is parsed and saved. I also added the logic to take the data and use it to create a graph with correct labels and values for the average happiness when they do certain activities.
 
 
 
