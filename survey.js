@@ -22,11 +22,22 @@ var surveyItems = [
     "Had restful sleep",
     "Unplugged before bedtime"]
 
+var trackings = []
+
 document.addEventListener('DOMContentLoaded', function() {
     createList(surveyItems);
+    var happinessRange = document.getElementById('happinessRange');
+    var selectedHappiness = document.getElementById('selectedHappiness');
+    happinessRange.addEventListener('input', updateValue);
+    
+    function updateValue() {
+        selectedHappiness.textContent = happinessRange.value;
+    }
 });
 
 document.getElementById("addNew").addEventListener('click', addItem);
+
+document.getElementById("remove").addEventListener('click', deleteItem);
 
 function createList(array) {
     var list = document.createElement("ul");
@@ -40,6 +51,8 @@ function createList(array) {
         checkbox.type = 'checkbox';
         checkbox.textContent = item;
         checkbox.id = item;
+
+        checkbox.style.padding = 0;
 
         label.textContent = item;
 
@@ -82,5 +95,23 @@ function updateList(){
         list.appendChild(label);
         list.appendChild(document.createElement('br'));
     });
+}
+
+function deleteItem() {
+    var remove = document.getElementById("deleteItem").value;
+
+    console.log(remove);
+    var index = surveyItems.indexOf(remove);
+
+    if (index !== -1){
+        surveyItems.splice(index, 1);
+        updateList();
+    }
+
+    document.getElementById("deleteItem").value = "";
+
+}
+
+function submitSurvey() {
 
 }

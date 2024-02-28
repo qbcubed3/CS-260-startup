@@ -10,14 +10,27 @@
     border-bottom: 2px solid black;
 }
 
-.survey .checkboxes{
-    list-style-position: inside;
+#checkboxes {
+    margin-bottom: 10px;
+}
+#checkboxes ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+#checkboxes label {
+    padding: 0;
 }
 
-.survey input[type="text"]:focus{
+#newItem {
+    margin-bottom: 5px;
+}
+
+.survey input[type="text"]:focus {
     outline: none;
     border-color: blue;
-    box-shadow: 0 0 5px blue; 
+    box-shadow: 0 0 5px blue;
 }
 
 .survey input[type="checkbox"]:hover{

@@ -27,6 +27,7 @@ body, html{
     flex-direction: column;
     background-color:rgb(165, 165, 165);
     width: 150px;
+    min-height: 75vh;
     border-radius: 10px;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
