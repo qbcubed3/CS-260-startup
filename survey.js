@@ -22,7 +22,7 @@ var surveyItems = [
     "Had restful sleep",
     "Unplugged before bedtime"]
 
-var trackings = []
+let trackings = {}
 
 document.addEventListener('DOMContentLoaded', function() {
     createList(surveyItems);
@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.getElementById("addNew").addEventListener('click', addItem);
-
 document.getElementById("remove").addEventListener('click', deleteItem);
+document.getElementById("submit").addEventListener('click', submitSurvey);
 
 function createList(array) {
     var list = document.createElement("ul");
@@ -113,5 +113,21 @@ function deleteItem() {
 }
 
 function submitSurvey() {
+    const date = new Date();
+    var list = document.getElementById("checkboxes");
+    let newDay = {}
+    var key = "";
+    var checks = document.getElementById("checkboxes").getElementsByTagName('input');
+    console.log(checks);
+    for(i=0; i < checks.length; i++){
+        console.log(checks[i])
+        key = checks[i].id;
+        newDay[key] = checks[i].checked;
+    }
 
+    trackings[date] = newDay;
+
+    console.log(trackings);
+
+    updateList();
 }
