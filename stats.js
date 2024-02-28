@@ -123,7 +123,7 @@ new Chart(chart, {
     data: {
         labels: graphLabels,
         datasets: [{
-        label:'Average Happiness for Each Activity', 
+        label:'Average Happiness for Activity', 
         data: ratioData,
         borderWidth: 1
         }]
