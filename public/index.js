@@ -14,3 +14,18 @@ function login() {
 
     window.location.href = "survey.html";
 }
+
+async function randomJoke() {
+    var joke = "why did the chicken cross the road"
+    try{
+        const response = await fetch('https://v2.jokeapi.dev/joke/Any');
+        const joke = response.json();
+    }
+    catch (error){
+        console.log('bad request')
+        return;
+    }
+    document.getElementById('joke').textContent = joke;
+}
+
+randomJoke();

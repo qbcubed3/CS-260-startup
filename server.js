@@ -40,10 +40,12 @@ apiRouter.post('/survey/delete', (req, res) =>{
     surveyItems.pop(item);
 });
 
+//puts the page on index if none specified
 app.use((_req, res) => {
     res.sendFile('index.html', { root: 'public' });
 });
 
+//runs on the port
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });
@@ -51,7 +53,7 @@ app.listen(port, () => {
 
 
 
-
+//variables
 var surveyItems = [
     "Morning meditation",
     "Worked out",
