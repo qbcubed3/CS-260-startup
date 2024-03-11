@@ -39,7 +39,7 @@ document.getElementById("addNew").addEventListener('click', addItem);
 document.getElementById("remove").addEventListener('click', deleteItem);
 document.getElementById("submit").addEventListener('click', submitSurvey);
 
-function createList(array) {
+async function createList(array) {
     var list = document.createElement("ul");
 
     list.id = "listContainer";
@@ -60,6 +60,17 @@ function createList(array) {
         list.appendChild(label);
         list.appendChild(document.createElement('br'));
     })
+    try{
+        const response = await fetch('/survey/update', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(surveyItems)
+        });
+    }
+    catch{
+        return;
+    }
+
 
     document.getElementById('checkboxes').appendChild(list);
 }
