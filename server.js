@@ -9,18 +9,29 @@ app.use('/api', apiRouter);
 app.use(express.json());
 app.use(express.static('public'));
 
-//receives the survey answers
+//sets the survey answers
 apiRouter.post('/survey/answers', (req, res) =>{
-    console.log("doing this");
     const received = req.body;
     var date = new Date();
     trackings[date] = received;
+});
+
+//receives the current survey data
+apiRouter.get('/survey/get', (req, res) =>{
+    res.json({'trackings': trackings});
 })
 
-//updates the survey
+//Updates the Survey
 apiRouter.post('/survey/update', (req, res) =>{
     const received = req.body;
     surveyItems = received;
+    res.json({'response': 'valid'});
+});
+
+//adds an item to the survey
+apiRouter.post('/survey/add', (req, res) =>{
+    const item = req.body;
+    surveyItems = 
 })
 
 app.use((_req, res) => {
@@ -35,7 +46,7 @@ app.listen(port, () => {
 
 
 
-//var surveyItems = [
+var surveyItems = [
     "Morning meditation",
     "Worked out",
     "Ate Breakfast",
@@ -57,6 +68,6 @@ app.listen(port, () => {
     "Attend a social event",
     "Ate Dinner",
     "Had restful sleep",
-//    "Unplugged before bedtime"]
+    "Unplugged before bedtime"]
 
-//let trackings = {}
+let trackings = {}

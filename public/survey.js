@@ -75,20 +75,29 @@ async function createList(array) {
     document.getElementById('checkboxes').appendChild(list);
 }
 
-function addItem(){
+async function addItem(){
     var newItem = document.getElementById("newItem").value;
 
     if(newItem.trim() !== ""){
         surveyItems.push(newItem);
+        try{
+            const response = await fetch('/survey/add', {
+                method: 'POST',
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify(newItem)
+            });
+        }
+        catch{
+            return;
+        }
 
         updateList();
     }
 
     document.getElementById("newItem").value = "";
-    console.log(surveyItems);
 }
 
-function updateList(){
+async function updateList(){
     var list = document.getElementById("listContainer");
 
     list.innerHTML = "";
@@ -106,6 +115,16 @@ function updateList(){
         list.appendChild(label);
         list.appendChild(document.createElement('br'));
     });
+    try{
+        const response = await fetch('/survey/update', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(surveyItems)
+        });
+    }
+    catch{
+        return;
+    }
 }
 
 function deleteItem() {
