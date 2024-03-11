@@ -40,6 +40,29 @@ apiRouter.post('/survey/delete', (req, res) =>{
     surveyItems.pop(item);
 });
 
+//updates the activities and amts
+apiRouter.post('/stats/add', (req, res) =>{
+    Object.values(trackings).forEach(day => {
+        Object.entries(day).forEach(([key, value]) => {
+            if (key === 'happiness'){
+                return;
+            }
+            if (!(key in amts)){
+                if (value){
+                    let newItem = {seen: 1, happiness: day['happiness']};
+                    amts[key] = newItem;
+                }
+            }
+            else{
+                if (value){
+                    amts[key]['seen'] += 1;
+                    amts[key]['happiness'] += day['happiness'];
+                }
+            }
+        })
+    })
+})
+
 //puts the page on index if none specified
 app.use((_req, res) => {
     res.sendFile('index.html', { root: 'public' });
@@ -78,4 +101,65 @@ var surveyItems = [
     "Had restful sleep",
     "Unplugged before bedtime"]
 
-let trackings = {}
+let trackings = {"2024-02-28": {
+    Worked: false,
+    Had_Breakfast: true,
+    Took_a_Walk: false,
+    happiness: Math.floor(Math.random() * 10) + 1,
+  },
+  "2024-02-29": {
+    Worked: true,
+    Had_Breakfast: true,
+    Took_a_Walk: false,
+    happiness: Math.floor(Math.random() * 10) + 1,
+  },
+  "2024-03-01": {
+    Worked: false,
+    Had_Breakfast: true,
+    Took_a_Walk: false,
+    happiness: Math.floor(Math.random() * 10) + 1,
+  },
+  "2024-04-02": {
+    Worked: false,
+    Had_Breakfast: true,
+    Took_a_Walk: false,
+    happiness: Math.floor(Math.random() * 10) + 1,
+  },
+  "2024-04-03": {
+    Worked: true,
+    Had_Breakfast: false,
+    Took_a_Walk: true,
+    happiness: Math.floor(Math.random() * 10) + 1,
+  },
+  "2024-04-04": {
+    Worked: true,
+    Had_Breakfast: true,
+    Took_a_Walk: true,
+    happiness: Math.floor(Math.random() * 10) + 1,
+  },
+  "2024-04-05": {
+    Worked: false,
+    Had_Breakfast: false,
+    Took_a_Walk: false,
+    happiness: Math.floor(Math.random() * 10) + 1,
+  },
+  "2024-04-06": {
+    Worked: true,
+    Had_Breakfast: false,
+    Took_a_Walk: true,
+    happiness: Math.floor(Math.random() * 10) + 1,
+  },
+  "2024-04-07": {
+    Worked: false,
+    Had_Breakfast: false,
+    Took_a_Walk: true,
+    happiness: Math.floor(Math.random() * 10) + 1,
+  },
+  "2024-04-08": {
+    Worked: true,
+    Had_Breakfast: true,
+    Took_a_Walk: true,
+    happiness: Math.floor(Math.random() * 10) + 1,
+  }}
+
+  let amts = {};

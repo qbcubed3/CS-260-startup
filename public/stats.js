@@ -58,7 +58,7 @@ const trackings = {
       Had_Breakfast: true,
       Took_a_Walk: true,
       happiness: Math.floor(Math.random() * 10) + 1,
-    },
+    }
   };
 let amts = {
 
@@ -66,7 +66,7 @@ let amts = {
 
 let ratios = {};
 
-function createAmts(){
+async function createAmts(){
     Object.values(trackings).forEach(day => {
         Object.entries(day).forEach(([key, value]) => {
             if (key === 'happiness'){
@@ -86,6 +86,17 @@ function createAmts(){
             }
         })
     })
+    try{
+      const response = await fetch('/survey/answers', {
+          method: 'POST',
+          headers: {'content-type': 'application/json'},
+          body: JSON.stringify(amts)
+      });
+  }
+  catch{
+      return;
+  }
+
 }
 
 function getRatios() {
