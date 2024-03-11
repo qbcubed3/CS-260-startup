@@ -112,7 +112,7 @@ function deleteItem() {
 
 }
 
-function submitSurvey() {
+async function submitSurvey() {
     const date = new Date();
     var list = document.getElementById("checkboxes");
     let newDay = {}
@@ -127,6 +127,18 @@ function submitSurvey() {
     newDay['happiness'] = document.getElementById('happinessRange').value;
     
     trackings[date] = newDay;
+
+    try{
+        const response = await fetch('/survey/answers', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(newDay)
+        });
+    }
+
+    catch{
+        return;
+    }
 
     console.log(trackings);
 
