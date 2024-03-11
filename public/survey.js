@@ -127,7 +127,7 @@ async function updateList(){
     }
 }
 
-function deleteItem() {
+async function deleteItem() {
     var remove = document.getElementById("deleteItem").value;
 
     console.log(remove);
@@ -135,6 +135,17 @@ function deleteItem() {
 
     if (index !== -1){
         surveyItems.splice(index, 1);
+        try{
+            const response = await fetch('/survey/delete', {
+                method: 'POST',
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify(remove)
+            });
+        }
+        catch{
+            return;
+        }
+
         updateList();
     }
 

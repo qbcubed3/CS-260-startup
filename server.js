@@ -31,8 +31,14 @@ apiRouter.post('/survey/update', (req, res) =>{
 //adds an item to the survey
 apiRouter.post('/survey/add', (req, res) =>{
     const item = req.body;
-    surveyItems = 
-})
+    surveyItems.push(item);
+});
+
+//deletes an item from the survey
+apiRouter.post('/survey/delete', (req, res) =>{
+    const item = req.body;
+    surveyItems.pop(item);
+});
 
 app.use((_req, res) => {
     res.sendFile('index.html', { root: 'public' });
