@@ -155,7 +155,7 @@ async function deleteItem() {
 async function submitSurvey() {
     const date = new Date();
     var list = document.getElementById("checkboxes");
-    let newDay = {}
+    var newDay = {}
     var key = "";
     var checks = document.getElementById("checkboxes").getElementsByTagName('input');
     console.log(checks);
@@ -167,19 +167,18 @@ async function submitSurvey() {
     newDay['happiness'] = document.getElementById('happinessRange').value;
     
     trackings[date] = newDay;
-    console.log(newDay);
+    updateList();
     try{
-        const response = await fetch('/api/survey/answers', {
+        var response = await fetch('/api/survey/answers', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify(newDay)
         });
     }
     catch{
+        console.log("ERROR")
         return;
     }
-    console.log(trackings);
-    updateList();
 }
 
 async function randomJoke() {

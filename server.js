@@ -1,4 +1,4 @@
-let surveyItems = [
+var surveyItems = [
     "Morning meditation",
     "Worked out",
     "Ate Breakfast",
@@ -23,12 +23,10 @@ let surveyItems = [
     "Unplugged before bedtime"
 ];
 
-let trackings = {"2024-02-28": {
+var trackings = {"2024-02-28": {
     Worked: false,
     Had_Breakfast: true,
     Took_a_Walk: false,
-    bed: true, 
-    false: false,
     happiness: Math.floor(Math.random() * 10) + 1,
   },
   "2024-02-29": {
@@ -86,7 +84,7 @@ let trackings = {"2024-02-28": {
     happiness: Math.floor(Math.random() * 10) + 1,
 }}
 
-let amts = {};
+var amts = {};
 
 const express = require('express');
 const app = express();
@@ -101,14 +99,10 @@ app.use(express.static('public'));
 
 //sets the survey answers
 apiRouter.post('/survey/answers', (req, res) =>{    
-    console.log(req);
-    var received = req.body;
-    console.log(received + "we did it?");
-    var date = new Date();
-    if (received !== undefined){
-      trackings[date] = received
-    }
-    res.end();
+  var received = req.body;
+  var date = new Date();
+  trackings[date] = received
+  res.json({'response': 'valid'})
 });
 
 //receives the current survey data

@@ -66,7 +66,12 @@ let amts = {
 
 let ratios = {};
 
-function createAmts(){
+async function createAmts(){
+  var response = await fetch('/api/stats/addItem', {
+    method: 'GET',
+    headers: {'content-type': 'application/json'},
+  })
+  /*
   Object.values(trackings).forEach(day => {
       Object.entries(day).forEach(([key, value]) => {
           if (key === 'happiness'){
@@ -86,6 +91,7 @@ function createAmts(){
           }
       })
   })
+  */
 }
 
 function getRatios() {
@@ -116,8 +122,8 @@ async function getData(){
   amts = jsonData;
 }
 
+createAmts();
 getData().then(() => {
-  console.log(amts);
   var ratioData = getRatios();
   var graphLabels = getLabels();
 
