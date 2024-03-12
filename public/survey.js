@@ -167,7 +167,7 @@ async function submitSurvey() {
     newDay['happiness'] = document.getElementById('happinessRange').value;
     
     trackings[date] = newDay;
-
+    console.log(newDay);
     try{
         const response = await fetch('/api/survey/answers', {
             method: 'POST',

@@ -112,6 +112,7 @@ async function getData(){
     headers: {'content-type': 'application/json'},
   })
   var jsonData = await response.json();
+  console.log(jsonData);
   amts = jsonData;
 }
 
@@ -128,33 +129,33 @@ getData().then(() => {
   console.log("ratio" + " " + ratioData);
   console.log("labels " + graphLabels);
 
-    new Chart(chart, {
-      type: 'bar',
-      data: {
-          labels: graphLabels,
-          datasets: [{
-          label:'Average Happiness for Activity', 
-          data: ratioData,
-          borderWidth: 1
-          }]
-      },
-      options: {
-          scales: {
-              y: {
-                  beginAtZero: true
-              }
-          },
-          animations: {
-              tension: {
-                duration: 1000,
-                easing: 'linear',
-                from: 1,
-                to: 0,
-                loop: false
-              }
+  new Chart(chart, {
+    type: 'bar',
+    data: {
+        labels: graphLabels,
+        datasets: [{
+        label:'Average Happiness for Activity', 
+        data: ratioData,
+        borderWidth: 1
+        }]
+    },
+    options: {
+      scales: {
+          y: {
+              beginAtZero: true
           }
+      },
+      animations: {
+        tension: {
+          duration: 1000,
+          easing: 'linear',
+          from: 1,
+          to: 0,
+          loop: false
+        }
       }
-  });
+    }
+  })
 });
 
 

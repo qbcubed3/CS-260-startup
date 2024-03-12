@@ -101,16 +101,14 @@ app.use(express.static('public'));
 
 //sets the survey answers
 apiRouter.post('/survey/answers', (req, res) =>{    
+    console.log(req);
     var received = req.body;
     console.log(received + "we did it?");
     var date = new Date();
-    if (received !== null){
+    if (received !== undefined){
       trackings[date] = received
-      createAmts();
     }
-    else{
-      return;
-    }
+    res.end();
 });
 
 //receives the current survey data
@@ -150,6 +148,7 @@ apiRouter.get('/stats/addItem', (req, res) =>{
   console.log("happening");  
   createAmts();
   console.log(amts);
+  res.end();
 })
 
 //gets the amounts from the server
