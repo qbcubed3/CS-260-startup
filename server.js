@@ -140,11 +140,7 @@ apiRouter.get('/stats/addItem', (req, res) =>{
 
 //gets the amounts from the server
 apiRouter.get('/stats/get', (req, res) =>{
-    const jsonData = JSON.stringify(amts);
-    console.log(amts);
-    res.setHeader('Content-Type', 'application/json');
-    console.log(jsonData);
-    res.send(jsonData);
+    res.send(JSON.stringify(amts))
 })
 
 //puts the page on index if none specified

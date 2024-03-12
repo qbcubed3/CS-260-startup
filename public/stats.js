@@ -103,15 +103,6 @@ async function createAmts(){
 
 async function getRatios() {
     var data = [];
-    const response = await fetch('/stats/get', {
-      method: 'GET',
-      headers: {'content-Type': 'application/json'}
-    })
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const amts = await response.json();
-
     Object.values(amts).forEach(activity =>{
         console.log(activity);
         var point = (activity['happiness']/activity['seen']);
@@ -128,6 +119,18 @@ function getLabels(){
     return data;
 }
 
+async function getData(){
+  var response = await fetch('/api/stats/get', {
+    method: 'GET',
+    headers: {'content-type': 'application/json'},
+  })
+
+  var jsonData = response.json();
+  console.log(jsonData);
+}
+
+
+GetData();
 var ratioData = getRatios();
 var graphLabels = getLabels();
 
