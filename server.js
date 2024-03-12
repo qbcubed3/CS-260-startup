@@ -23,8 +23,6 @@ let surveyItems = [
     "Unplugged before bedtime"
 ];
 
-console.log(surveyItems);
-
 let trackings = {"2024-02-28": {
     Worked: false,
     Had_Breakfast: true,
@@ -120,26 +118,28 @@ apiRouter.post('/survey/update', (req, res) =>{
 
 //adds an item to the survey
 apiRouter.post('/survey/add', (req, res) =>{
-    console.log("made it here");
     const item = req.body;
-    console.log(surveyItems);
-    surveyItems.push(item);
+    addSurvey(item);
+    res.json({'response': 'valid'});
 });
 
 //deletes an item from the survey
 apiRouter.post('/survey/delete', (req, res) =>{
+    console.log("made it");
     const item = req.body;
-    surveyItems.pop(item);
+    dropSurvey(item);
+    res.json({'response': 'valid'});
 });
 
 //updates the activities and amts
 apiRouter.get('/stats/addItem', (req, res) =>{
     console.log("hope this works")
     createAmts();
+    console.log(amts);
 })
 
 //gets the amounts from the server
-apiRouter.post('/stats/get', (req, res) =>{
+apiRouter.get('/stats/get', (req, res) =>{
     const jsonData = JSON.stringify(amts);
     console.log(amts);
     res.setHeader('Content-Type', 'application/json');
@@ -178,4 +178,11 @@ async function createAmts(){
           }
       })
   })
+}
+
+function addSurvey(item){
+    surveyItems.push(item);
+}
+function dropSurvey(item){
+    surveyItems.pop(item);
 }

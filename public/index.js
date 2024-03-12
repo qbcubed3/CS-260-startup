@@ -1,3 +1,4 @@
+
 document.getElementById("login").addEventListener('click', login);
 
 //logs in a user

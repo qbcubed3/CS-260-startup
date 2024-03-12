@@ -135,10 +135,10 @@ async function deleteItem() {
     if (index !== -1){
         surveyItems.splice(index, 1);
         try{
-            const response = await fetch('/survey/delete', {
+            const response = await fetch('api/survey/delete', {
                 method: 'POST',
                 headers: {'content-type': 'application/json'},
-                body: JSON.stringify(remove.substring(1, remove.length - 1))
+                body: JSON.stringify(remove),
             });
         }
         catch{

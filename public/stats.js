@@ -72,10 +72,9 @@ let ratios = {};
 async function createAmts(){
   try{
     console.log("call happened");
-    var promise = await fetch('/stats/addItem', {
-        method: 'POST',
+    var promise = await fetch('/api/stats/addItem', {
+        method: 'GET',
         headers: {'content-type': 'application/json'},
-        body: JSON.stringify(amts)
     });
   }
   catch{
@@ -105,11 +104,8 @@ async function createAmts(){
 async function getRatios() {
     var data = [];
     const response = await fetch('/stats/get', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept' : 'application/json'
-      }
+      method: 'GET',
+      headers: {'content-Type': 'application/json'}
     })
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
