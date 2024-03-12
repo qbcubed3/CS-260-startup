@@ -61,7 +61,7 @@ async function createList(array) {
         list.appendChild(document.createElement('br'));
     })
     try{
-        const response = await fetch('/survey/update', {
+        const response = await fetch('/api/survey/update', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify(surveyItems)
@@ -77,19 +77,18 @@ async function createList(array) {
 
 async function addItem(){
     var newItem = document.getElementById("newItem").value;
-
+    try{
+        const response = await fetch('/api/survey/add', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(newItem)
+        });
+    }
+    catch{
+        return;
+    }
     if(newItem.trim() !== ""){
         surveyItems.push(newItem);
-        try{
-            const response = await fetch('/survey/add', {
-                method: 'POST',
-                headers: {'content-type': 'application/json'},
-                body: JSON.stringify(newItem)
-            });
-        }
-        catch{
-            return;
-        }
 
         updateList();
     }
@@ -139,7 +138,7 @@ async function deleteItem() {
             const response = await fetch('/survey/delete', {
                 method: 'POST',
                 headers: {'content-type': 'application/json'},
-                body: JSON.stringify(remove)
+                body: JSON.stringify(remove.substring(1, remove.length - 1))
             });
         }
         catch{

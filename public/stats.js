@@ -64,43 +64,58 @@ let amts = {
 
 }
 
+
+createAmts();
+
 let ratios = {};
 
 async function createAmts(){
-    Object.values(trackings).forEach(day => {
-        Object.entries(day).forEach(([key, value]) => {
-            if (key === 'happiness'){
-                return;
-            }
-            if (!(key in amts)){
-                if (value){
-                    let newItem = {seen: 1, happiness: day['happiness']};
-                    amts[key] = newItem;
-                }
-            }
-            else{
-                if (value){
-                    amts[key]['seen'] += 1;
-                    amts[key]['happiness'] += day['happiness'];
-                }
-            }
-        })
-    })
-    try{
-      const response = await fetch('/survey/answers', {
-          method: 'POST',
-          headers: {'content-type': 'application/json'},
-          body: JSON.stringify(amts)
-      });
+  try{
+    console.log("call happened");
+    var promise = await fetch('/stats/addItem', {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(amts)
+    });
   }
   catch{
-      return;
+    return;
   }
-
+  Object.values(trackings).forEach(day => {
+      Object.entries(day).forEach(([key, value]) => {
+          if (key === 'happiness'){
+              return;
+          }
+          if (!(key in amts)){
+              if (value){
+                  let newItem = {seen: 1, happiness: day['happiness']};
+                  amts[key] = newItem;
+              }
+          }
+          else{
+              if (value){
+                  amts[key]['seen'] += 1;
+                  amts[key]['happiness'] += day['happiness'];
+              }
+          }
+      })
+  })
 }
 
-function getRatios() {
+async function getRatios() {
     var data = [];
+    const response = await fetch('/stats/get', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept' : 'application/json'
+      }
+    })
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const amts = await response.json();
+
     Object.values(amts).forEach(activity =>{
         console.log(activity);
         var point = (activity['happiness']/activity['seen']);
@@ -116,8 +131,6 @@ function getLabels(){
     })
     return data;
 }
-createAmts();
-
 
 var ratioData = getRatios();
 var graphLabels = getLabels();
@@ -125,8 +138,6 @@ var graphLabels = getLabels();
 const graphData = {
     
 }
-
-console.log(ratioData);
 const chart = document.getElementById('barGraph');
 
 new Chart(chart, {
@@ -169,14 +180,12 @@ async function randomJoke() {
               const punchline = data.punchline;
               document.getElementById("setup").textContent = setup;
               document.getElementById("punchline").textContent= punchline;
-              console.log(setup + " : " + punchline);
           })      
   }
   catch (error){
       console.log('bad request')
       return;
   }
-  console.log(joke);
 }
 
 randomJoke();
