@@ -79,6 +79,16 @@ For this part of the project I built out the basic HTML for the webpage
 
 **Application Logic** - The survey is fully useable with selectable options and a slideable rank. This data is parsed and saved. I also added the logic to take the data and use it to create a graph with correct labels and values for the average happiness when they do certain activities.
 
+### Service Deliverable
 
+**Create an HTTP service using Node.js and Express** - Done
+
+**Frontend served up using Express static middleware** - Done, used express to communicate between the front end and the back end
+
+**Your frontend calls third party service endpoints** - Done, called a 3rd party web API that chooses a random joke and put them on each page.
+
+**Your backend provides service endpoints** - Done, created all the service endpoints that were necessary for my application and server to run
+
+**Your frontend calls your service endpoints** - Done, implemented and used each of my service endpoints in my frontend.
 
 
