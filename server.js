@@ -27,6 +27,8 @@ let trackings = {"2024-02-28": {
     Worked: false,
     Had_Breakfast: true,
     Took_a_Walk: false,
+    bed: true, 
+    false: false,
     happiness: Math.floor(Math.random() * 10) + 1,
   },
   "2024-02-29": {
@@ -100,8 +102,15 @@ app.use(express.static('public'));
 //sets the survey answers
 apiRouter.post('/survey/answers', (req, res) =>{    
     var received = req.body;
+    console.log(received + "we did it?");
     var date = new Date();
-    trackings[date] = received;
+    if (received !== null){
+      trackings[date] = received
+      createAmts();
+    }
+    else{
+      return;
+    }
 });
 
 //receives the current survey data
@@ -119,7 +128,12 @@ apiRouter.post('/survey/update', (req, res) =>{
 //adds an item to the survey
 apiRouter.post('/survey/add', (req, res) =>{
     const item = req.body;
-    addSurvey(item);
+    if (surveyItems){
+      addSurvey(item);
+    }
+    else{
+      surveyItems = {}
+    }
     res.json({'response': 'valid'});
 });
 
@@ -133,14 +147,15 @@ apiRouter.post('/survey/delete', (req, res) =>{
 
 //updates the activities and amts
 apiRouter.get('/stats/addItem', (req, res) =>{
-    console.log("hope this works")
-    createAmts();
-    console.log(amts);
+  console.log("happening");  
+  createAmts();
+  console.log(amts);
 })
 
 //gets the amounts from the server
 apiRouter.get('/stats/get', (req, res) =>{
-    res.send(JSON.stringify(amts))
+  console.log(amts);  
+  res.send(JSON.stringify(amts));
 })
 
 //puts the page on index if none specified
@@ -154,7 +169,8 @@ app.listen(port, () => {
 });
 
 
-async function createAmts(){
+function createAmts(){
+  console.log(trackings);
   Object.values(trackings).forEach(day => {
       Object.entries(day).forEach(([key, value]) => {
           if (key === 'happiness'){

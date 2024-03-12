@@ -64,22 +64,9 @@ let amts = {
 
 }
 
-
-createAmts();
-
 let ratios = {};
 
-async function createAmts(){
-  try{
-    console.log("call happened");
-    var promise = await fetch('/api/stats/addItem', {
-        method: 'GET',
-        headers: {'content-type': 'application/json'},
-    });
-  }
-  catch{
-    return;
-  }
+function createAmts(){
   Object.values(trackings).forEach(day => {
       Object.entries(day).forEach(([key, value]) => {
           if (key === 'happiness'){
@@ -101,7 +88,7 @@ async function createAmts(){
   })
 }
 
-async function getRatios() {
+function getRatios() {
     var data = [];
     Object.values(amts).forEach(activity =>{
         console.log(activity);
@@ -124,48 +111,52 @@ async function getData(){
     method: 'GET',
     headers: {'content-type': 'application/json'},
   })
-
-  var jsonData = response.json();
-  console.log(jsonData);
+  var jsonData = await response.json();
+  amts = jsonData;
 }
 
+getData().then(() => {
+  console.log(amts);
+  var ratioData = getRatios();
+  var graphLabels = getLabels();
 
-GetData();
-var ratioData = getRatios();
-var graphLabels = getLabels();
+  const graphData = {
+        
+  }
+  const chart = document.getElementById('barGraph');
 
-const graphData = {
-    
-}
-const chart = document.getElementById('barGraph');
+  console.log("ratio" + " " + ratioData);
+  console.log("labels " + graphLabels);
 
-new Chart(chart, {
-    type: 'bar',
-    data: {
-        labels: graphLabels,
-        datasets: [{
-        label:'Average Happiness for Activity', 
-        data: ratioData,
-        borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        },
-        animations: {
-            tension: {
-              duration: 1000,
-              easing: 'linear',
-              from: 1,
-              to: 0,
-              loop: false
-            }
-        }
-    }
+    new Chart(chart, {
+      type: 'bar',
+      data: {
+          labels: graphLabels,
+          datasets: [{
+          label:'Average Happiness for Activity', 
+          data: ratioData,
+          borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          },
+          animations: {
+              tension: {
+                duration: 1000,
+                easing: 'linear',
+                from: 1,
+                to: 0,
+                loop: false
+              }
+          }
+      }
+  });
 });
+
 
 async function randomJoke() {
   var joke;

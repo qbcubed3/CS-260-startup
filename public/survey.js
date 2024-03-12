@@ -169,21 +169,19 @@ async function submitSurvey() {
     trackings[date] = newDay;
 
     try{
-        const response = await fetch('/survey/answers', {
+        const response = await fetch('/api/survey/answers', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify(newDay)
         });
     }
-
     catch{
         return;
     }
-
     console.log(trackings);
-
     updateList();
 }
+
 async function randomJoke() {
     var joke;
     try{
