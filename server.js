@@ -95,6 +95,7 @@ var apiRouter = express.Router();
 app.use('/api', apiRouter);
 
 app.use(express.json());
+app.use(express.static('public'));
 
 //sets the survey answers
 apiRouter.post('/survey/answers', (req, res) =>{    

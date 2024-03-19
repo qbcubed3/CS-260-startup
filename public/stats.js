@@ -67,7 +67,7 @@ let amts = {
 let ratios = {};
 
 async function createAmts(){
-  var response = await fetch('/api/stats/addItem', {
+  var response = await fetch('/stats/addItem', {
     method: 'GET',
     headers: {'content-type': 'application/json'},
   })

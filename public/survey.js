@@ -1,3 +1,4 @@
+/*
 var surveyItems = [
     "Morning meditation",
     "Worked out",
@@ -23,6 +24,7 @@ var surveyItems = [
     "Unplugged before bedtime"]
 
 let trackings = {}
+*/
 
 document.addEventListener('DOMContentLoaded', function() {
     createList(surveyItems);
