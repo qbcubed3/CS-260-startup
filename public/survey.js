@@ -26,6 +26,8 @@ var surveyItems = [
 let trackings = {}
 */
 
+import { addScores } from '../database.js';
+
 document.addEventListener('DOMContentLoaded', function() {
     createList(surveyItems);
     var happinessRange = document.getElementById('happinessRange');
@@ -167,8 +169,9 @@ async function submitSurvey() {
         newDay[key] = checks[i].checked;
     }
     newDay['happiness'] = document.getElementById('happinessRange').value;
-    
-    trackings[date] = newDay;
+    console.log("adding score");
+    addScores("user1", newDay);
+    //trackings[date] = newDay;
     updateList();
     try{
         var response = await fetch('/api/survey/answers', {

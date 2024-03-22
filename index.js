@@ -1,3 +1,4 @@
+/*
 var surveyItems = [
     "Morning meditation",
     "Worked out",
@@ -86,7 +87,7 @@ var trackings = {"2024-02-28": {
 
 var amts = {};
 
-const express = require('express');
+import express from 'express';
 const app = express();
 
 const port = 3046;
@@ -160,6 +161,7 @@ app.use((_req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });
+*/
 
 
 function createAmts(){
