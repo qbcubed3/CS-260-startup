@@ -86,7 +86,7 @@ var trackings = {"2024-02-28": {
 
 var amts = {};
 
-import express from 'express';
+const express = require('express');
 const app = express();
 
 const port = 3046;

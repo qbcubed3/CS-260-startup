@@ -1,8 +1,8 @@
-import * as MongoDB from 'mongodb'
+const MongoDB = require('mongodb');
 const { MongoClient } = MongoDB;
 
-import bcrypt from 'bcrypt';
-import config from './dbConfig.json';
+const bcrypt = require('bcrypt');
+const dbConfig = require('./dbConfig.json');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
@@ -62,4 +62,4 @@ async function addScores(username, scores){
     }
 }
 
-export {addScores, checkPass, checkUser, addUser};
+module.exports = {addScores, checkPass, checkUser, addUser};

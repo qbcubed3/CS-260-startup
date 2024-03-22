@@ -26,8 +26,6 @@ var surveyItems = [
 let trackings = {}
 */
 
-import { addScores } from '../database.js';
-
 document.addEventListener('DOMContentLoaded', function() {
     createList(surveyItems);
     var happinessRange = document.getElementById('happinessRange');
