@@ -36,12 +36,12 @@ async function newAuth(user){
 }
 
 async function checkAuth(user, auth){
-    const result = await auths.findOne({username: user, authToken: auth}, (err, result) =>{
+    const result = await auths.findOne({authToken: auth}, (err, result) =>{
         if (err) {
             return false;
         }
         if (result){
-            return true;
+            return result.username;
         }
     });
 }
@@ -120,11 +120,26 @@ async function getItems(user){
     else{
         return result.items;
     }
-    
 }
 
-async function addItem(item, username){
-    const result = await items.findOne({username});
+async function addItem(item, user){
+    const result = await items.findOne({user});
+    const items = result.items;
+    let index = items.indexOf(item);
+    if (index !== -1){
+        items.splice(index, 1);
+    }
+    const filter = { username: user };
+
+        // Specify the update operation (e.g., set new values)
+    const updateDoc = {
+        $set: {
+            items: items,
+        }
+    };
+
+    // Update the document matching the filter
+    const result2 = await collection.updateOne(filter, updateDoc);
 
 }
 module.exports = {addScores, checkPass, checkUser, addUser, getItems, addItem};

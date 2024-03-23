@@ -1,4 +1,3 @@
-/*
 var surveyItems = [
     "Morning meditation",
     "Worked out",
@@ -24,7 +23,6 @@ var surveyItems = [
     "Unplugged before bedtime"]
 
 let trackings = {}
-*/
 
 document.addEventListener('DOMContentLoaded', function() {
     createList(surveyItems);
@@ -79,21 +77,22 @@ async function createList(array) {
 
 async function addItem(){
     var newItem = document.getElementById("newItem").value;
+    const auth = localStorage.getItem("auth");
+    const body = {
+        authToken: auth,
+        item: newItem
+    }
     try{
         const response = await fetch('/api/survey/add', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
-            body: JSON.stringify(newItem)
+            body: JSON.stringify(body)
         });
     }
     catch{
         return;
     }
-    if(newItem.trim() !== ""){
-        surveyItems.push(newItem);
-
-        updateList();
-    }
+    updateList();
 
     document.getElementById("newItem").value = "";
 }
@@ -102,12 +101,12 @@ async function updateList(){
     var list = document.getElementById("listContainer");
 
     list.innerHTML = "";
-    const auth = localStorage..getItem()
+    const auth = localStorage.getItem("auth");
     try{
         const response = await fetch('/survey/update', {
-            method: 'GET',
+            method: 'POST',
             headers: {'content-type': 'application/json'},
-            body: JSON.stringify({localStorage.getItem})
+            body: JSON.stringify({auth})
         });
     }
     catch (error){

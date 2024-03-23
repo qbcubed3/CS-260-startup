@@ -87,7 +87,7 @@ var trackings = {"2024-02-28": {
 currentUser = "user";
 var amts = {};
 
-const {addScores, checkPass, checkUser, addUser, getItems, addItem} = require('./database.js');
+const database = require('./database.js');
 const express = require('express');
 const app = express();
 
@@ -141,23 +141,29 @@ apiRouter.get('/survey/get', (req, res) =>{
 })
 
 //Updates the Survey
-apiRouter.get('/survey/update', (req, res) =>{
+apiRouter.post('/survey/update', (req, res) =>{
     const auth = req.body;
-    
-    const items = getItems();
-    res.json({'response': 'valid'});
+    const user = checkAuth(auth);
+    if (user){
+      const items = getItems();
+      res.json({'items':items});
+    }
+    else{
+      console.log("Cant log you in, authToken is invalid");
+    }
 });
 
 //adds an item to the survey
 apiRouter.post('/survey/add', (req, res) =>{
-    const item = req.body;
-    if (surveyItems){
-      addSurvey(item);
+    const auth = req.body.authToken;
+    const user = checkAuth(auth);
+    if (user){
+      addItem(req.body.item, user);
+      res.json({'response': 'valid'});
     }
     else{
-      surveyItems = {}
+      console.log("BAD AUTH");
     }
-    res.json({'response': 'valid'});
 });
 
 //deletes an item from the survey
