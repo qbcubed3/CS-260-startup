@@ -1,8 +1,8 @@
-const MongoDB = require('mongodb');
-const { MongoClient } = MongoDB;
+const { MongoClient } = require('mongodb');
 
 const bcrypt = require('bcrypt');
-const dbConfig = require('./dbConfig.json');
+const config = require('./dbConfig.json');
+const jwt = require('jsonwebtoken');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
@@ -11,40 +11,61 @@ const db = client.db('startup');
 const users = db.collection('users');
 const scores = db.collection('scores');
 const items = db.collection('items');
+const auths = db.collection('auths');
 
 (async function testConnection() {
     await client.connect();
     await db.command({ping: 1});
-}).catch((ex) => {
-    console.log('Unable to connect to database');
+})().catch((ex) => {
+    console.log(`Unable to connect to database because ${ex.message}`);
     process.exit(1);
 });
 
 async function addUser(username, password){
-    const hashedPass = bcrypt.hash(password);
+    const salt = 5;
+    const hashedPass = await bcrypt.hash(password, salt);
     const result = await users.insertOne({username: username, password: hashedPass});
-    return result
+    const key = "myKey";
+    const token = jwt.sign(username, key);
+    auths.insertOne({authToken: token});
+    localStorage.setItem("auth", token);
+}
+
+async function checkAuth(){
+    const auth = localStorage.getItem("auth");
+    const result = await auths.findOne({authToken: auth}, (err, result) =>{
+        if (err) {
+            return false;
+        }
+        if (result){
+            return true;
+        }
+    });
 }
 
 async function checkUser(username){
-    const user = users.findOne({username});
-    if (user == null){
+    const user = await users.findOne({username});
+    console.log('user ' + user);
+    if (user === null){
         return false;
     }
-    return true;
+    else{
+        return true;
+    }
 }
 
 async function checkPass(username, password){
     try{
-        const user = users.findOne({username});
+        const user = await users.findOne({username});
         const hashedPass = user.password;
-        if (bcrypt.compare(password, hashedPass)){
+        const same = await bcrypt.compare(password, hashedPass);
+        if (same){
             return true;
         }
         return false;
     }
     catch (error){
-        console.log("trouble inserting into the database");
+        console.log("trouble inserting into the database " + error.message);
     }
 }
 

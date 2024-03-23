@@ -87,16 +87,45 @@ var trackings = {"2024-02-28": {
 currentUser = "user";
 var amts = {};
 
+const {addScores, checkPass, checkUser, addUser, getItems, addItem} = require('./database.js');
 const express = require('express');
 const app = express();
 
 const port = 3046;
 
-var apiRouter = express.Router();
-app.use('/api', apiRouter);
-
 app.use(express.json());
+
 app.use(express.static('public'));
+
+var apiRouter = express.Router();
+app.use(`/api`, apiRouter);
+
+
+
+apiRouter.post('/login', async (req, res) =>{
+  const {username, password} = req.body;
+  console.log("username: " + username + "password: " + password);
+  try{
+    if (await checkUser(username)){
+      if (await checkPass(username, password)){
+        res.status(200).json({ message: "logged in" });
+        return;
+      }
+      else{
+        res.status(302).json({message: "bad password"});
+        return;
+      }
+    }
+    else{
+      console.log("username: " + username + "password: " + password);
+      addUser(username, password);
+    }
+  }
+  catch (error){
+    console.error();
+  }
+  res.status(200).json({ message: "Registered and logged In!" });
+})
 
 //sets the survey answers
 apiRouter.post('/survey/answers', (req, res) =>{    
