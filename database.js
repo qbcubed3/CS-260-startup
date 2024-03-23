@@ -12,7 +12,7 @@ const users = db.collection('users');
 const scores = db.collection('scores');
 const items = db.collection('items');
 
-(async function testCOnnection() {
+(async function testConnection() {
     await client.connect();
     await db.command({ping: 1});
 }).catch((ex) => {
@@ -62,4 +62,46 @@ async function addScores(username, scores){
     }
 }
 
-module.exports = {addScores, checkPass, checkUser, addUser};
+async function getItems(user){
+    const result = await items.findOne({user});
+    if (result == null){
+        const result2 = await items.updateOne(
+            {$set: {["items"]: [
+                "Morning meditation",
+                "Worked out",
+                "Ate Breakfast",
+                "Talked to a Friend",
+                "Learned something new",
+                "Took a walk",
+                "Listened to music",
+                "Did a Hobby",
+                "Read a book",
+                "Wrote in a journal",
+                "Ate lunch",
+                "Took Breaks from Work",
+                "Disconnect from technology for a bit",
+                "Had coffee/tea",
+                "Did something creative",
+                "Help someone in need",
+                "Planned for future goals",
+                "Laughed or watched something funny",
+                "Attend a social event",
+                "Ate Dinner",
+                "Had restful sleep",
+                "Unplugged before bedtime"
+            ]}},
+            {$set: {["username"]: user}}
+        ); 
+        return result2.items;
+    }
+    else{
+        return result.items;
+    }
+    
+}
+
+async function addItem(item, username){
+    const result = await items.findOne({username});
+
+}
+module.exports = {addScores, checkPass, checkUser, addUser, getItems, addItem};

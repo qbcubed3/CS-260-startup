@@ -84,6 +84,7 @@ var trackings = {"2024-02-28": {
     happiness: Math.floor(Math.random() * 10) + 1,
 }}
 
+currentUser = "user";
 var amts = {};
 
 const express = require('express');
