@@ -102,6 +102,17 @@ async function updateList(){
     var list = document.getElementById("listContainer");
 
     list.innerHTML = "";
+    const auth = localStorage..getItem()
+    try{
+        const response = await fetch('/survey/update', {
+            method: 'GET',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({localStorage.getItem})
+        });
+    }
+    catch (error){
+        console.log(error.message);
+    }
     surveyItems.forEach(function(item) {
         var label = document.createElement('label');
 
@@ -116,16 +127,6 @@ async function updateList(){
         list.appendChild(label);
         list.appendChild(document.createElement('br'));
     });
-    try{
-        const response = await fetch('/survey/update', {
-            method: 'POST',
-            headers: {'content-type': 'application/json'},
-            body: JSON.stringify(surveyItems)
-        });
-    }
-    catch{
-        return;
-    }
 }
 
 async function deleteItem() {

@@ -25,15 +25,18 @@ async function addUser(username, password){
     const salt = 5;
     const hashedPass = await bcrypt.hash(password, salt);
     const result = await users.insertOne({username: username, password: hashedPass});
-    const key = "myKey";
-    const token = jwt.sign(username, key);
-    auths.insertOne({authToken: token});
-    localStorage.setItem("auth", token);
+    return newAuth(username)
 }
 
-async function checkAuth(){
-    const auth = localStorage.getItem("auth");
-    const result = await auths.findOne({authToken: auth}, (err, result) =>{
+async function newAuth(user){
+    const key = "myKey";
+    const token = jwt.sign(user, key);
+    await auths.insertOne({username: user, authToken: token});
+    return token;
+}
+
+async function checkAuth(user, auth){
+    const result = await auths.findOne({username: user, authToken: auth}, (err, result) =>{
         if (err) {
             return false;
         }
@@ -86,8 +89,8 @@ async function addScores(username, scores){
 async function getItems(user){
     const result = await items.findOne({user});
     if (result == null){
-        const result2 = await items.updateOne(
-            {$set: {["items"]: [
+        const result2 = await items.insertOne(
+            {username: user, items: [
                 "Morning meditation",
                 "Worked out",
                 "Ate Breakfast",
@@ -110,8 +113,7 @@ async function getItems(user){
                 "Ate Dinner",
                 "Had restful sleep",
                 "Unplugged before bedtime"
-            ]}},
-            {$set: {["username"]: user}}
+            ]}
         ); 
         return result2.items;
     }

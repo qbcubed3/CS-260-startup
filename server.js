@@ -108,8 +108,9 @@ apiRouter.post('/login', async (req, res) =>{
   try{
     if (await checkUser(username)){
       if (await checkPass(username, password)){
-        res.status(200).json({ message: "logged in" });
-        return;
+        const auth = await newAuth(username);
+        res.status(200).json({ message: "logged in", authToken: auth });
+        return
       }
       else{
         res.status(302).json({message: "bad password"});
@@ -117,14 +118,13 @@ apiRouter.post('/login', async (req, res) =>{
       }
     }
     else{
-      console.log("username: " + username + "password: " + password);
-      addUser(username, password);
+      const auth = await addUser(username, password);
+      res.status(200).json({message: "registered and logged in", authToken: auth});
     }
   }
   catch (error){
     console.error();
   }
-  res.status(200).json({ message: "Registered and logged In!" });
 })
 
 //sets the survey answers
@@ -141,9 +141,10 @@ apiRouter.get('/survey/get', (req, res) =>{
 })
 
 //Updates the Survey
-apiRouter.post('/survey/update', (req, res) =>{
-    const received = req.body;
-    surveyItems = received;
+apiRouter.get('/survey/update', (req, res) =>{
+    const auth = req.body;
+    
+    const items = getItems();
     res.json({'response': 'valid'});
 });
 

@@ -207,14 +207,21 @@ async function login() {
 
     password.value = "";
     username.value = "";
+    console.log("username: " + userText + "password: " + passText);
     try{
       const response = await fetch('/api/login',{
         method: 'POST',
         headers: {
           'content-type': 'application/json'
         },
-        body: JSON.stringify({ userText, passText })
+        body: JSON.stringify({ username, password })
       })
+      .then(response => response.json())
+      .then(data => {
+    // Access the authToken from the response object
+      const authToken = data.authToken;
+      localStorage.setItem("auth", authToken);
+      });
     }
     catch (error){
       console.log('bad request');
