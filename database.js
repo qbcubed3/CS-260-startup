@@ -37,7 +37,6 @@ async function newAuth(user){
 
 async function checkAuth(auth){
     const thing = await auths.findOne({authToken: auth})
-    console.log(thing);
         if (thing){
             return thing.username;
         }
@@ -88,34 +87,35 @@ async function addScores(username, scores){
 
 async function getItems(user){
     const result = await items.findOne({username: user});
+    const things = [
+        "Morning meditation",
+        "Worked out",
+        "Ate Breakfast",
+        "Talked to a Friend",
+        "Learned something new",
+        "Took a walk",
+        "Listened to music",
+        "Did a Hobby",
+        "Read a book",
+        "Wrote in a journal",
+        "Ate lunch",
+        "Took Breaks from Work",
+        "Disconnect from technology for a bit",
+        "Had coffee/tea",
+        "Did something creative",
+        "Help someone in need",
+        "Planned for future goals",
+        "Laughed or watched something funny",
+        "Attend a social event",
+        "Ate Dinner",
+        "Had restful sleep",
+        "Unplugged before bedtime"
+    ]
     if (result == null){
         const result2 = await items.insertOne(
-            {username: user, items: [
-                "Morning meditation",
-                "Worked out",
-                "Ate Breakfast",
-                "Talked to a Friend",
-                "Learned something new",
-                "Took a walk",
-                "Listened to music",
-                "Did a Hobby",
-                "Read a book",
-                "Wrote in a journal",
-                "Ate lunch",
-                "Took Breaks from Work",
-                "Disconnect from technology for a bit",
-                "Had coffee/tea",
-                "Did something creative",
-                "Help someone in need",
-                "Planned for future goals",
-                "Laughed or watched something funny",
-                "Attend a social event",
-                "Ate Dinner",
-                "Had restful sleep",
-                "Unplugged before bedtime"
-            ]}
+            {username: user, items:things}
         ); 
-        return result2.items;
+        return things;
     }
     else{
         return result.items;
@@ -123,12 +123,19 @@ async function getItems(user){
 }
 
 async function addItem(item, user){
-    const result = await items.findOne({user});
-    const things = result.items;
+    const result = await items.findOne({username: user});
+    var things;
+    if (result === null){
+        things = await getItems(user);
+    }
+    else{
+        things = result.items;
+    }
     let index = things.indexOf(item);
     if (index !== -1){
         things.splice(index, 1);
     }
+    things.push(item);
     const filter = { username: user };
 
         // Specify the update operation (e.g., set new values)
@@ -139,7 +146,6 @@ async function addItem(item, user){
     };
 
     // Update the document matching the filter
-    const result2 = await collection.updateOne(filter, updateDoc);
-
+    const result2 = await items.updateOne(filter, updateDoc);
 }
 module.exports = {addScores, checkPass, checkUser, addUser, getItems, addItem, checkAuth, newAuth};

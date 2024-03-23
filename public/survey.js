@@ -94,7 +94,7 @@ async function addItem(){
     catch{
         return;
     }
-    updateList();
+    await updateList();
 
     document.getElementById("newItem").value = "";
 }
@@ -103,21 +103,21 @@ async function updateList(){
     var list = document.getElementById("listContainer");
     var response;
     list.innerHTML = "";
-    const auth = localStorage.getItem("auth");
+    const body = {
+        authToken: localStorage.getItem("auth")
+    }
     try{
-        response = await fetch('/survey/update', {
+        response = await fetch('/api/survey/update', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
-            body: JSON.stringify({auth})
+            body: JSON.stringify(body)
         });
-        
     }
     catch (error){
         console.log(error.message);
     }
-    const data = response.json();
+    const data = await response.json();
     const items = data.items;
-
     items.forEach(function(item) {
         var label = document.createElement('label');
 
@@ -133,6 +133,7 @@ async function updateList(){
         list.appendChild(document.createElement('br'));
     });
 }
+
 
 async function deleteItem() {
     var remove = document.getElementById("deleteItem").value;

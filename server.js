@@ -150,15 +150,17 @@ apiRouter.post('/survey/update', async (req, res) =>{
     const bondy = req.body;
     const auth = bondy.authToken;
     const user = await checkAuth(auth);
-    console.log("user" + user);
+    var items;
     if (user){
-      const items = await getItems(user);
-      console.log(items);
-      res.json({'items': items});
+      items = await getItems(user);
     }
     else{
       console.log("Cant log you in, authToken is invalid");
+      res.json({'message':'bad'});
+      return;
     }
+    console.log(items);
+    res.json({"items": items});
 });
 
 //adds an item to the survey
