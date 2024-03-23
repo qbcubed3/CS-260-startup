@@ -168,20 +168,23 @@ async function submitSurvey() {
     }
     newDay['happiness'] = document.getElementById('happinessRange').value;
     console.log("adding score");
-    addScores("user1", newDay);
+    const data = {
+        auth: localStorage.getItem("auth"),
+        scores: newDay
+    }
     //trackings[date] = newDay;
-    updateList();
     try{
         var response = await fetch('/api/survey/answers', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
-            body: JSON.stringify(newDay)
+            body: JSON.stringify(ndata)
         });
     }
     catch{
         console.log("ERROR")
         return;
     }
+    updateList();
 }
 
 async function randomJoke() {

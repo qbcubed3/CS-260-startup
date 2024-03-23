@@ -124,17 +124,17 @@ async function getItems(user){
 
 async function addItem(item, user){
     const result = await items.findOne({user});
-    const items = result.items;
-    let index = items.indexOf(item);
+    const things = result.items;
+    let index = things.indexOf(item);
     if (index !== -1){
-        items.splice(index, 1);
+        things.splice(index, 1);
     }
     const filter = { username: user };
 
         // Specify the update operation (e.g., set new values)
     const updateDoc = {
         $set: {
-            items: items,
+            items: things,
         }
     };
 
@@ -142,4 +142,4 @@ async function addItem(item, user){
     const result2 = await collection.updateOne(filter, updateDoc);
 
 }
-module.exports = {addScores, checkPass, checkUser, addUser, getItems, addItem};
+module.exports = {addScores, checkPass, checkUser, addUser, getItems, addItem, checkAuth, newAuth};
