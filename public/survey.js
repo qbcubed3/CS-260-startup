@@ -22,7 +22,6 @@ var surveyItems = [
     "Had restful sleep",
     "Unplugged before bedtime"]
 
-let trackings = {}
 
 document.addEventListener('DOMContentLoaded', function() {
     createList(surveyItems);
@@ -60,11 +59,14 @@ async function createList(array) {
         list.appendChild(label);
         list.appendChild(document.createElement('br'));
     })
+    const body = {
+        authToken: localStorage.getItem("auth")
+    }
     try{
         const response = await fetch('/api/survey/update', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
-            body: JSON.stringify(surveyItems)
+            body: JSON.stringify(body)
         });
     }
     catch{
@@ -99,20 +101,24 @@ async function addItem(){
 
 async function updateList(){
     var list = document.getElementById("listContainer");
-
+    var response;
     list.innerHTML = "";
     const auth = localStorage.getItem("auth");
     try{
-        const response = await fetch('/survey/update', {
+        response = await fetch('/survey/update', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({auth})
         });
+        
     }
     catch (error){
         console.log(error.message);
     }
-    surveyItems.forEach(function(item) {
+    const data = response.json();
+    const items = data.items;
+
+    items.forEach(function(item) {
         var label = document.createElement('label');
 
         var checkbox = document.createElement('input');
@@ -177,7 +183,7 @@ async function submitSurvey() {
         var response = await fetch('/api/survey/answers', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
-            body: JSON.stringify(ndata)
+            body: JSON.stringify(data)
         });
     }
     catch{

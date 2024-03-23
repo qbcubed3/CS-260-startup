@@ -130,23 +130,31 @@ apiRouter.post('/login', async (req, res) =>{
 //sets the survey answers
 apiRouter.post('/survey/answers', (req, res) =>{    
   var received = req.body;
-  var date = new Date();
-  trackings[date] = received
-  res.json({'response': 'valid'})
+  const auth = received.auth;
+  const user = checkAuth(auth);
+  const data = received.scores;
+  addScores(user, data);
+  res.json({"message": "added scores"});
 });
 
 //receives the current survey data
-apiRouter.get('/survey/get', (req, res) =>{
-    res.json({'trackings': trackings});
+apiRouter.post('/survey/get', (req, res) =>{
+    const bondy = req.body;
+    const auth = bondy.authToken;
+    const user = checkAuth(auth);
+    getItems(user);
 })
 
 //Updates the Survey
-apiRouter.post('/survey/update', (req, res) =>{
-    const auth = req.body;
-    const user = checkAuth(auth);
+apiRouter.post('/survey/update', async (req, res) =>{
+    const bondy = req.body;
+    const auth = bondy.authToken;
+    const user = await checkAuth(auth);
+    console.log("user" + user);
     if (user){
-      const items = getItems();
-      res.json({'items':items});
+      const items = await getItems(user);
+      console.log(items);
+      res.json({'items': items});
     }
     else{
       console.log("Cant log you in, authToken is invalid");

@@ -9,7 +9,7 @@ const client = new MongoClient(url);
 const db = client.db('startup');
 
 const users = db.collection('users');
-const scores = db.collection('scores');
+const scoreCollection = db.collection('scores');
 const items = db.collection('items');
 const auths = db.collection('auths');
 
@@ -35,16 +35,16 @@ async function newAuth(user){
     return token;
 }
 
-async function checkAuth(user, auth){
-    const result = await auths.findOne({authToken: auth}, (err, result) =>{
-        if (err) {
+async function checkAuth(auth){
+    const thing = await auths.findOne({authToken: auth})
+    console.log(thing);
+        if (thing){
+            return thing.username;
+        }
+        else{
             return false;
         }
-        if (result){
-            return result.username;
-        }
-    });
-}
+};
 
 async function checkUser(username){
     const user = await users.findOne({username});
@@ -75,19 +75,19 @@ async function checkPass(username, password){
 async function addScores(username, scores){
     try{
         const curDate = new Date();
-        const result = await scores.insertOne({
+        const result = await scoreCollection.insertOne({
             username: username,
             date: curDate,
             scores: scores
         })
     }
     catch (error){
-        console.log("trouble inserting into the database")
+        console.log("trouble inserting into the database " + error.message);
     }
 }
 
 async function getItems(user){
-    const result = await items.findOne({user});
+    const result = await items.findOne({username: user});
     if (result == null){
         const result2 = await items.insertOne(
             {username: user, items: [
