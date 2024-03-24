@@ -133,19 +133,38 @@ async function addItem(item, user){
     }
     let index = things.indexOf(item);
     if (index !== -1){
-        things.splice(index, 1);
+        return;
     }
     things.push(item);
     const filter = { username: user };
-
-        // Specify the update operation (e.g., set new values)
     const updateDoc = {
         $set: {
             items: things,
         }
     };
-
-    // Update the document matching the filter
     const result2 = await items.updateOne(filter, updateDoc);
 }
-module.exports = {addScores, checkPass, checkUser, addUser, getItems, addItem, checkAuth, newAuth};
+
+async function deleteItem(item, user){
+    const result = await items.findOne({username: user});
+    var things;
+    if (result === null){
+        things = await getItems(user);
+    }
+    else{
+        things = result.items;
+    }
+    let index = things.indexOf(item);
+    if (index === -1){
+        return;
+    }
+    things.splice(index, 1);
+    const filter = { username: user };
+    const updateDoc = {
+        $set: {
+            items: things,
+        }
+    };
+    const result2 = await items.updateOne(filter, updateDoc);
+}
+module.exports = {addScores, checkPass, checkUser, addUser, getItems, addItem, checkAuth, newAuth, deleteItem};

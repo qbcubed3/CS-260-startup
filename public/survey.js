@@ -42,8 +42,23 @@ async function createList(array) {
     var list = document.createElement("ul");
 
     list.id = "listContainer";
+    const body2 = {
+        authToken: localStorage.getItem("auth")
+    }
+    try{
+        response = await fetch('/api/survey/get', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(body2)
+        });
+    }
+    catch (error){
+        console.log(error.message);
+    }
+    const data = await response.json();
+    const items = data.items;
 
-    array.forEach(function(item) {
+    items.forEach(function(item) {
         var label = document.createElement('label');
 
         var checkbox = document.createElement('input');
@@ -137,26 +152,22 @@ async function updateList(){
 
 async function deleteItem() {
     var remove = document.getElementById("deleteItem").value;
-
-    console.log(remove);
-    var index = surveyItems.indexOf(remove);
-
-    if (index !== -1){
-        surveyItems.splice(index, 1);
-        try{
-            const response = await fetch('api/survey/delete', {
-                method: 'POST',
-                headers: {'content-type': 'application/json'},
-                body: JSON.stringify(remove),
-            });
-        }
-        catch{
-            return;
-        }
-
-        updateList();
+    const body = {
+        authToken: localStorage.getItem("auth"),
+        item: remove
+    }
+    try{
+        const response = await fetch('api/survey/delete', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(body),
+        });
+    }
+    catch{
+        return;
     }
 
+    updateList();
     document.getElementById("deleteItem").value = "";
 
 }
@@ -217,3 +228,26 @@ async function randomJoke() {
 }
 
 randomJoke();
+
+
+let leaving = false;
+
+window.addEventListener('beforeunload', (event) => {
+    if (!leaving) {
+        localStorage.removeItem('authToken');
+    }
+});
+
+document.addEventListener('click', (event) => {
+    if (event.target.tagName === 'A' && event.target.href) {
+        const currentHost = window.location.host;
+        const targetHost = event.target.host;
+        if (currentHost !== targetHost) {
+            leaving = true;
+        }
+    }
+});
+
+window.addEventListener('unload', (event) => {
+    leaving = true;
+});

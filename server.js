@@ -87,7 +87,7 @@ var trackings = {"2024-02-28": {
 currentUser = "user";
 var amts = {};
 
-const {checkAuth, checkPass, checkUser, addUser, addItem, addScores, newAuth, getItems} = require('./database.js');
+const {checkAuth, checkPass, checkUser, addUser, addItem, addScores, newAuth, getItems, deleteItem} = require('./database.js');
 const express = require('express');
 const app = express();
 
@@ -104,7 +104,6 @@ app.use(`/api`, apiRouter);
 
 apiRouter.post('/login', async (req, res) =>{
   const {username, password} = req.body;
-  console.log("username: " + username + "password: " + password);
   try{
     if (await checkUser(username)){
       if (await checkPass(username, password)){
@@ -127,22 +126,25 @@ apiRouter.post('/login', async (req, res) =>{
   }
 })
 
-//sets the survey answers
-apiRouter.post('/survey/answers', (req, res) =>{    
+//gets the scores from the survey
+apiRouter.post('/survey/answers', async (req, res) =>{    
   var received = req.body;
   const auth = received.auth;
-  const user = checkAuth(auth);
+  const user = await checkAuth(auth);
   const data = received.scores;
   addScores(user, data);
   res.json({"message": "added scores"});
 });
 
 //receives the current survey data
-apiRouter.post('/survey/get', (req, res) =>{
+apiRouter.post('/survey/get', async (req, res) =>{
     const bondy = req.body;
     const auth = bondy.authToken;
-    const user = checkAuth(auth);
-    getItems(user);
+    const user = await checkAuth(auth);
+    console.log(user);
+    const items = await getItems(user);
+    console.log(items);
+    res.json({"items": items});
 })
 
 //Updates the Survey
@@ -164,9 +166,9 @@ apiRouter.post('/survey/update', async (req, res) =>{
 });
 
 //adds an item to the survey
-apiRouter.post('/survey/add', (req, res) =>{
+apiRouter.post('/survey/add', async (req, res) =>{
     const auth = req.body.authToken;
-    const user = checkAuth(auth);
+    const user = await checkAuth(auth);
     if (user){
       addItem(req.body.item, user);
       res.json({'response': 'valid'});
@@ -177,20 +179,17 @@ apiRouter.post('/survey/add', (req, res) =>{
 });
 
 //deletes an item from the survey
-apiRouter.post('/survey/delete', (req, res) =>{
-    console.log("made it");
-    const item = req.body;
-    dropSurvey(item);
-    res.json({'response': 'valid'});
+apiRouter.post('/survey/delete', async (req, res) =>{
+    const auth = req.body.authToken;
+    const user = await checkAuth(auth);
+    if (user){
+      deleteItem(req.body.item, user);
+      res.json({"response": "valid"});
+    }
+    else{
+      res.json({"response": "BAD AUTH"});
+    }
 });
-
-//updates the activities and amts
-apiRouter.get('/stats/addItem', (req, res) =>{
-  console.log("happening");  
-  createAmts();
-  console.log(amts);
-  res.end();
-})
 
 //gets the amounts from the server
 apiRouter.get('/stats/get', (req, res) =>{
