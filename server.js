@@ -87,7 +87,7 @@ var trackings = {"2024-02-28": {
 currentUser = "user";
 var amts = {};
 
-const {checkAuth, checkPass, checkUser, addUser, addItem, addScores, newAuth, getItems, deleteItem} = require('./database.js');
+const {checkAuth, checkPass, checkUser, addUser, addItem, addScores, newAuth, getItems, deleteItem, getScores} = require('./database.js');
 const express = require('express');
 const app = express();
 
@@ -197,9 +197,19 @@ apiRouter.post('/survey/delete', async (req, res) =>{
 });
 
 //gets the amounts from the server
-apiRouter.get('/stats/get', (req, res) =>{
-  console.log(amts);  
-  res.send(JSON.stringify(amts));
+apiRouter.post('/stats/get', async (req, res) =>{
+  console.log("called it");
+  const auth = req.body.authToken;
+  const user = await checkAuth(auth);
+  console.log(user);
+  if (user){
+    const final = await getScores(user)
+    console.log(final);
+    res.json({"scores": final})
+  }
+  else{
+    res.status(201);
+  }
 })
 
 //removes the auth from the database

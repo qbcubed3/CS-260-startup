@@ -177,12 +177,33 @@ async function removeAuth(auth){
 
 async function getScores(user){
     const results = await scoreCollection.find({username: user}).toArray();
+    let seen = {};
+    let happiness = {};
     results.forEach(doc =>{
-        let data = {}
-        doc.scores.forEach(item =>{
-            if 
+        var happy = parseFloat(doc.scores.happiness);
+        Object.entries(doc.scores).forEach(([key, value]) =>{
+            if (key === "happiness"){
+                return;
+            }
+            if (value){
+                if (seen.hasOwnProperty(key)){
+                    seen[key] += 1;
+                    happiness[key] += happy;
+                }
+                else{
+                    seen[key] = 1;
+                    happiness[key] = happy;
+                }
+            }
         })
     })
+    let final = {};
+    Object.entries(seen).forEach(([key, value]) =>{
+        console.log("seen: " + seen[key] + " happiness: " + happiness[key]);
+        final[key] = happiness[key]/seen[key]
+    })
+    console.log("final: " + final);
+    return final;
 }
 
-module.exports = {addScores, checkPass, checkUser, addUser, getItems, addItem, checkAuth, newAuth, deleteItem, removeAuth};
+module.exports = {addScores, checkPass, checkUser, addUser, getItems, addItem, checkAuth, newAuth, deleteItem, removeAuth, getScores};

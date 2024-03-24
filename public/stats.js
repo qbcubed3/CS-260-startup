@@ -65,13 +65,13 @@ let amts = {
 }
 
 let ratios = {};
-
+/*
 async function createAmts(){
   var response = await fetch('/stats/addItem', {
     method: 'GET',
     headers: {'content-type': 'application/json'},
   })
-  /*
+
   Object.values(trackings).forEach(day => {
       Object.entries(day).forEach(([key, value]) => {
           if (key === 'happiness'){
@@ -91,17 +91,20 @@ async function createAmts(){
           }
       })
   })
-  */
+  
 }
-
-function getRatios() {
-    var data = [];
-    Object.values(amts).forEach(activity =>{
-        console.log(activity);
-        var point = (activity['happiness']/activity['seen']);
-        data.push(point);
-    })
-    return data;
+*/
+async function getRatios() {
+  const body = {
+    authToken: localStorage.getItem("auth")
+  }
+  var response = await fetch('/api/stats/get', {
+    method: 'POST',
+    headers: {'content-type': 'application/json'},
+    body: JSON.stringify(body)
+  })
+  const data = await response.json();
+  const items = data.scores;
 }
 
 function getLabels(){
@@ -122,9 +125,8 @@ async function getData(){
   amts = jsonData;
 }
 
-createAmts();
-getData().then(() => {
-  var ratioData = getRatios();
+async function graph(){
+  var ratioData = await getRatios();
   var graphLabels = getLabels();
 
   const graphData = {
@@ -162,9 +164,9 @@ getData().then(() => {
       }
     }
   })
-});
+};
 
-
+graph();
 async function randomJoke() {
   var joke;
   try{
