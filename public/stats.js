@@ -105,14 +105,21 @@ async function getRatios() {
   })
   const data = await response.json();
   const items = data.scores;
+  return items;
 }
 
-function getLabels(){
-    var data = [];
-    Object.keys(amts).forEach(activity =>{
-        data.push(activity);
-    })
-    return data;
+async function getLabels(){
+  const body = {
+    authToken: localStorage.getItem("auth")
+  }
+  var response = await fetch('/api/survey/get', {
+    method: 'POST',
+    headers: {'content-type': 'application/json'},
+    body: JSON.stringify(body)
+  })
+  const data = await response.json();
+  const questions = data.items;
+  return questions;
 }
 
 async function getData(){
@@ -127,8 +134,7 @@ async function getData(){
 
 async function graph(){
   var ratioData = await getRatios();
-  var graphLabels = getLabels();
-
+  var graphLabels = await getLabels();
   const graphData = {
         
   }

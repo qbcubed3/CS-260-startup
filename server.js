@@ -87,7 +87,7 @@ var trackings = {"2024-02-28": {
 currentUser = "user";
 var amts = {};
 
-const {checkAuth, checkPass, checkUser, addUser, addItem, addScores, newAuth, getItems, deleteItem, getScores} = require('./database.js');
+const {checkAuth, checkPass, checkUser, addUser, addItem, addScores, newAuth, getItems, deleteItem, getScores, removeAuth} = require('./database.js');
 const express = require('express');
 const app = express();
 
