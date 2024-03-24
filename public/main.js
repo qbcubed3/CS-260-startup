@@ -29,7 +29,7 @@ async function login() {
     catch (error){
       console.log('bad request');
     }
-    //window.location.href = "survey.html";
+    window.location.href = "survey.html";
 }
 
 async function randomJoke() {
