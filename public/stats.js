@@ -202,6 +202,7 @@ async function logout(){
   const body = {
     authToken: localStorage.getItem("auth")
   }
+  localStorage.removeItem("auth");
   try{
     const response = await fetch('/api/logout', {
       method: 'POST',
@@ -211,8 +212,6 @@ async function logout(){
   }
   catch{
     console.log("ERROR")
-    return;
   }
-  localStorage.removeItem("auth");
   console.log("logged out");
 }

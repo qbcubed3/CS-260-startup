@@ -91,4 +91,14 @@ For this part of the project I built out the basic HTML for the webpage
 
 **Your frontend calls your service endpoints** - Done, implemented and used each of my service endpoints in my frontend.
 
+### Login Deliverable
 
+**Supports new user registration** - Done. Users can Register/login on the homepage of the website.
+
+**Supports existing user authentication** - Done. Allows Users to login to their pre-existing user accounts.
+
+**Stores application data in MongoDB** - Done. Stores the users authentication and survey data in mongodb to be used and accessed later
+
+**Stores and retrieves credentials in MongoDB** - Uses MongoDB to store users and also authTokens to validate their usage of the app
+
+**Restricts application functionality based opon authentication** - Done. If the has no authToken or a bad one then they will not be able to see any stats, and the data from the survey will not be saved.

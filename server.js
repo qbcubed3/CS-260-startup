@@ -91,7 +91,7 @@ const {checkAuth, checkPass, checkUser, addUser, addItem, addScores, newAuth, ge
 const express = require('express');
 const app = express();
 
-const port = 3046;
+const port = 4000;
 
 app.use(express.json());
 
