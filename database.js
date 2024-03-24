@@ -47,7 +47,6 @@ async function checkAuth(auth){
 
 async function checkUser(username){
     const user = await users.findOne({username});
-    console.log('user ' + user);
     if (user === null){
         return false;
     }
@@ -167,4 +166,23 @@ async function deleteItem(item, user){
     };
     const result2 = await items.updateOne(filter, updateDoc);
 }
-module.exports = {addScores, checkPass, checkUser, addUser, getItems, addItem, checkAuth, newAuth, deleteItem};
+
+async function removeAuth(auth){
+    const result = await auths.deleteOne({authToken: auth})
+    if (result.deletedCount === 0){
+        return false;
+    }
+    return true;
+}
+
+async function getScores(user){
+    const results = await scoreCollection.find({username: user}).toArray();
+    results.forEach(doc =>{
+        let data = {}
+        doc.scores.forEach(item =>{
+            if 
+        })
+    })
+}
+
+module.exports = {addScores, checkPass, checkUser, addUser, getItems, addItem, checkAuth, newAuth, deleteItem, removeAuth};

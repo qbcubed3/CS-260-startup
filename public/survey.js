@@ -230,24 +230,23 @@ async function randomJoke() {
 randomJoke();
 
 
-let leaving = false;
+document.getElementById("logout").addEventListener('click', logout);
 
-window.addEventListener('beforeunload', (event) => {
-    if (!leaving) {
-        localStorage.removeItem('authToken');
-    }
-});
-
-document.addEventListener('click', (event) => {
-    if (event.target.tagName === 'A' && event.target.href) {
-        const currentHost = window.location.host;
-        const targetHost = event.target.host;
-        if (currentHost !== targetHost) {
-            leaving = true;
-        }
-    }
-});
-
-window.addEventListener('unload', (event) => {
-    leaving = true;
-});
+async function logout(){
+  const body = {
+    authToken: localStorage.getItem("auth")
+  }
+  try{
+    const response = await fetch('/api/logout', {
+      method: 'POST',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify(body)
+    });
+  }
+  catch{
+    console.log("ERROR")
+    return;
+  }
+  localStorage.removeItem("auth");
+  console.log("logged out");
+}

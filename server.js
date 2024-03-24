@@ -132,8 +132,13 @@ apiRouter.post('/survey/answers', async (req, res) =>{
   const auth = received.auth;
   const user = await checkAuth(auth);
   const data = received.scores;
-  addScores(user, data);
-  res.json({"message": "added scores"});
+  if (user){
+    addScores(user, data);
+    res.status(200).json({"message": "added scores"});
+  }
+  else{
+    res.status(302).json({"message": "badAuth"});
+  }
 });
 
 //receives the current survey data
@@ -197,6 +202,19 @@ apiRouter.get('/stats/get', (req, res) =>{
   res.send(JSON.stringify(amts));
 })
 
+//removes the auth from the database
+apiRouter.post('/logout', async (req, res) =>{
+  console.log("this is urnning")
+  const auth = req.body.authToken;
+  if (await removeAuth(auth)){
+    console.log("removed auth");
+  }
+  else{
+    console.log("coudn't find auth");
+  }
+  
+})
+
 //puts the page on index if none specified
 app.use((_req, res) => {
     res.sendFile('index.html', { root: 'public' });
@@ -206,34 +224,3 @@ app.use((_req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });
-
-
-function createAmts(){
-  console.log(trackings);
-  Object.values(trackings).forEach(day => {
-      Object.entries(day).forEach(([key, value]) => {
-          if (key === 'happiness'){
-              return;
-          }
-          if (!(key in amts)){
-              if (value){
-                  let newItem = {seen: 1, happiness: day['happiness']};
-                  amts[key] = newItem;
-              }
-          }
-          else{
-              if (value){
-                  amts[key]['seen'] += 1;
-                  amts[key]['happiness'] += day['happiness'];
-              }
-          }
-      })
-  })
-}
-
-function addSurvey(item){
-    surveyItems.push(item);
-}
-function dropSurvey(item){
-    surveyItems.pop(item);
-}

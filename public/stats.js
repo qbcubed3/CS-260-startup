@@ -186,3 +186,25 @@ async function randomJoke() {
 }
 
 randomJoke();
+
+
+document.getElementById("logout").addEventListener('click', logout);
+
+async function logout(){
+  const body = {
+    authToken: localStorage.getItem("auth")
+  }
+  try{
+    const response = await fetch('/api/logout', {
+      method: 'POST',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify(body)
+    });
+  }
+  catch{
+    console.log("ERROR")
+    return;
+  }
+  localStorage.removeItem("auth");
+  console.log("logged out");
+}
