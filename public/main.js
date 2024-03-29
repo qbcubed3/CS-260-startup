@@ -19,25 +19,22 @@ async function login() {
         },
         body: JSON.stringify({ username, password })
       })
-      .then(response => response.json())
-      .then(data => {
+      const data = await response.json();
     // Access the authToken from the response object
     const message = data.message;
     const authToken = data.authToken;
     localStorage.setItem("auth", authToken);
-      if (message !== "Could not log you in. Bad Password"){
-        window.location.href = "survey.html";
-        return;
-      }
-      });
+    if (response.status !== 302){
+      window.location.href = "survey.html";
+      return;
     }
-    
+    }
     catch (error){
       console.log(error.message);
       document.getElementById("error").textContent = message;
       console.log('bad request');
     }
-    dsetTimeout(function () {
+    setTimeout(function () {
       document.getElementById("error").textContent = "Could not log you in. Bad Password";
   }, 1000);
 }

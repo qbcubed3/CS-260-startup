@@ -4,13 +4,6 @@ document.getElementById("goSurvey").addEventListener('click', function(){
     window.location.href = "survey.html";
 })
 
-var socket;
-
-function createWebSocket(){
-    const protocol = window.location.protocol === 'http: ' ? 'ws' : 'wss';
-    socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
-    
-}
 randomPopup();
 function closePopup(){
     var popup = document.getElementById("popup-container");
