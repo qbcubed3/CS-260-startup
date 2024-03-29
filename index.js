@@ -1,4 +1,5 @@
 const {checkAuth, checkPass, checkUser, addUser, addItem, addScores, newAuth, getItems, deleteItem, getScores, removeAuth} = require('./database.js');
+const {peerProxy} = require('./peerproxy.js');
 const express = require('express');
 const app = express();
 
@@ -142,6 +143,8 @@ app.use((_req, res) => {
 });
 
 //runs on the port
-app.listen(port, () => {
+const httpService = app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
+
+peerProxy(httpService);
