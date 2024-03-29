@@ -108,17 +108,17 @@ apiRouter.post('/login', async (req, res) =>{
     if (await checkUser(username)){
       if (await checkPass(username, password)){
         const auth = await newAuth(username);
-        res.status(200).json({ message: "logged in", authToken: auth });
+        res.status(201).json({ message: "logged in", authToken: auth });
         return
       }
       else{
-        res.status(302).json({message: "bad password"});
+        res.status(302).json({message: "Could not log you in. Bad Password"});
         return;
       }
     }
     else{
       const auth = await addUser(username, password);
-      res.status(200).json({message: "registered and logged in", authToken: auth});
+      res.status(202).json({message: "registered and logged in", authToken: auth});
     }
   }
   catch (error){

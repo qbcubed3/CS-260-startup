@@ -7,10 +7,10 @@ async function login() {
 
     var passText = password.value;
     var userText = username.value;
-
+    var message;
     password.value = "";
     username.value = "";
-    console.log("username: " + userText + "password: " + passText);
+    console.log(username + password);
     try{
       const response = await fetch('/api/login',{
         method: 'POST',
@@ -22,14 +22,22 @@ async function login() {
       .then(response => response.json())
       .then(data => {
     // Access the authToken from the response object
-      const authToken = data.authToken;
-      localStorage.setItem("auth", authToken);
+    const message = data.message;
+    const authToken = data.authToken;
+    localStorage.setItem("auth", authToken);
+      if (message !== "Could not log you in. Bad Password"){
+        window.location.href = "survey.html";
+        return;
+      }
       });
     }
     catch (error){
+      console.log(error.message);
+      document.getElementById("error").textContent = message;
       console.log('bad request');
     }
-    window.location.href = "survey.html";
+    console.log("doing this")
+    document.getElementById("error").textContent = "Could not log you in. Bad Password";
 }
 
 async function randomJoke() {
