@@ -19,9 +19,7 @@ async function createSocket(){
         if (event.data === 'Popup'){
             showPopup();
         }
-        else if (event.data === 'ping'){
-        }
-        socket.send('pong')
+        socket.send('pong');
     }
     socket.onclose = async () => {
         console.log("websocket connection closed");

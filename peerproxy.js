@@ -17,9 +17,7 @@ function peerProxy(httpServer) {
         const current = new Date();
         const hour = current.getHours();
         const minute = current.getMinutes();
-        console.log(hour + ":" + minute);
-        if (true){
-            console.log(connections);
+        if (hour === 19 && minute == 0){
             connections.forEach((c) =>{
                 console.log(c);
                 c.ws.send('Popup');
@@ -34,12 +32,10 @@ function peerProxy(httpServer) {
         connections.push(connection);
 
 
-        ws.on('message', function message(data) {
-            connections.forEach((c) => {
-              if (c.id !== connection.id) {
-                c.ws.send(data);
-              }
-            });
+        ws.on('message', (message) => {
+            if (message.data === 'pong'){
+                connections.alive = true;
+            }
         });
 
         ws.on('close', () => {
@@ -51,7 +47,6 @@ function peerProxy(httpServer) {
         });
 
         ws.on('pong', () => {
-            console.log("switching to true");
             connections.alive = true;
             console.log(connections);
         });
@@ -59,14 +54,10 @@ function peerProxy(httpServer) {
 
     setInterval(() => {
         connections.forEach((c) => {
-            if (!c.alive) {
-                c.ws.terminate();
-            } else{
-                c.alive = false;
+                connections.alive = false;
                 c.ws.send('ping');
-            }
-        })
-    }, 20000);
+            })
+        }, 10000);
 }
 
 module.exports = peerProxy;
