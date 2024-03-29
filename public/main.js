@@ -31,13 +31,15 @@ async function login() {
       }
       });
     }
+    
     catch (error){
       console.log(error.message);
       document.getElementById("error").textContent = message;
       console.log('bad request');
     }
-    console.log("doing this")
-    document.getElementById("error").textContent = "Could not log you in. Bad Password";
+    dsetTimeout(function () {
+      document.getElementById("error").textContent = "Could not log you in. Bad Password";
+  }, 1000);
 }
 
 async function randomJoke() {
