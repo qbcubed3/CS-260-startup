@@ -1,9 +1,9 @@
 const {checkAuth, checkPass, checkUser, addUser, addItem, addScores, newAuth, getItems, deleteItem, getScores, removeAuth} = require('./database.js');
-const {peerProxy} = require('./peerproxy.js');
+const peerProxy = require('./peerProxy.js')
 const express = require('express');
 const app = express();
 
-const port = 4000;
+const port = 3000;
 
 app.use(express.json());
 
