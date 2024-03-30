@@ -241,18 +241,18 @@ async function logout(){
     authToken: localStorage.getItem("auth")
   }
   try{
-    const response = await fetch('/api/logout', {
+    var response = await fetch('/api/logout', {
       method: 'POST',
       headers: {'content-type': 'application/json'},
       body: JSON.stringify(body)
     });
   }
-  catch{
-    console.log("ERROR")
+  catch (error){
+    console.log("error" + error)
     return;
   }
   localStorage.removeItem("auth");
-  console.log("logged out");
+  window.location.href = "index.html";
 }
 
 

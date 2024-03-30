@@ -52,9 +52,7 @@ function peerProxy(httpServer) {
                         c.ws.send(chatMessage);
                     })
                 }
-            catch (error){
-                console.log("not valid JSON");
-            }
+                catch (error){}
             }
         });
 

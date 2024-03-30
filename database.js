@@ -36,9 +36,7 @@ async function newAuth(user){
 }
 
 async function checkAuth(auth){
-    console.log("auth: " + auth);
     const thing = await auths.findOne({authToken: auth})
-    console.log("thing: " + thing)
         if (thing){
             return thing.username;
         }
@@ -171,6 +169,7 @@ async function deleteItem(item, user){
 
 async function removeAuth(auth){
     const result = await auths.deleteOne({authToken: auth})
+     console.log("result: " + result);
     if (result.deletedCount === 0){
         return false;
     }

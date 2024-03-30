@@ -126,14 +126,15 @@ else{
 
 //removes the auth from the database
 apiRouter.post('/logout', async (req, res) =>{
-console.log("this is urnning")
 const auth = req.body.authToken;
+console.log(auth);
 if (await removeAuth(auth)){
   console.log("removed auth");
 }
 else{
   console.log("coudn't find auth");
 }
+res.status(200).json({"message": "logged out"})
 
 })
 

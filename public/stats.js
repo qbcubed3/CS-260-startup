@@ -213,5 +213,6 @@ async function logout(){
   catch{
     console.log("ERROR")
   }
-  console.log("logged out");
+  localStorage.removeItem("auth");
+  window.location.href = "index.html";
 }

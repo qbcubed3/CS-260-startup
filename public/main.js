@@ -81,5 +81,5 @@ async function logout(){
     return;
   }
   localStorage.removeItem("auth");
-  console.log("logged out");
+  window.location.href = "index.html";
 }
