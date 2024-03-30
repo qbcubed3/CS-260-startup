@@ -102,3 +102,13 @@ For this part of the project I built out the basic HTML for the webpage
 **Stores and retrieves credentials in MongoDB** - Uses MongoDB to store users and also authTokens to validate their usage of the app
 
 **Restricts application functionality based opon authentication** - Done. If the has no authToken or a bad one then they will not be able to see any stats, and the data from the survey will not be saved.
+
+### Websocket Deliverable
+
+**Backend listens for a websocket connection** - Done. The backend listens for a websocket connection.
+
+**Frontend makes Websocket connection** - Done. The front end creates a new Websocket connection when needed.
+
+**Data sent over Websocket Connection** - Done. Chat feature is implemented and sends messages over the websocket connection. Ping pong system is also set up that sends information over the websocket connection too. Also has a popup that appears at 7 pm every day that reminds the user to take the daily survey. This is called by websocket sending a message that tells the website to pull up the popup.
+
+**Websocket data displayed in the chat** - Done. The chat feature allows users to send a message to the chat, and then Websocket is used to distribute that message to everyone else in realtime to have a realtime chat.
