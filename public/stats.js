@@ -128,7 +128,6 @@ async function getData(){
     headers: {'content-type': 'application/json'},
   })
   var jsonData = await response.json();
-  console.log(jsonData);
   amts = jsonData;
 }
 
@@ -139,9 +138,6 @@ async function graph(){
         
   }
   const chart = document.getElementById('barGraph');
-
-  console.log("ratio" + " " + ratioData);
-  console.log("labels " + graphLabels);
 
   new Chart(chart, {
     type: 'bar',

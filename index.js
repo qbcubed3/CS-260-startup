@@ -58,9 +58,7 @@ apiRouter.post('/survey/get', async (req, res) =>{
   const bondy = req.body;
   const auth = bondy.authToken;
   const user = await checkAuth(auth);
-  console.log(user);
   const items = await getItems(user);
-  console.log(items);
   res.json({"items": items});
 })
 
@@ -78,7 +76,6 @@ apiRouter.post('/survey/update', async (req, res) =>{
     res.json({'message':'bad'});
     return;
   }
-  console.log(items);
   res.json({"items": items});
 });
 
@@ -110,13 +107,10 @@ apiRouter.post('/survey/delete', async (req, res) =>{
 
 //gets the amounts from the server
 apiRouter.post('/stats/get', async (req, res) =>{
-console.log("called it");
 const auth = req.body.authToken;
 const user = await checkAuth(auth);
-console.log(user);
 if (user){
   const final = await getScores(user)
-  console.log(final);
   res.json({"scores": final})
 }
 else{
@@ -126,7 +120,6 @@ else{
 
 //removes the auth from the database
 apiRouter.post('/logout', async (req, res) =>{
-console.log("this is urnning")
 const auth = req.body.authToken;
 if (await removeAuth(auth)){
   console.log("removed auth");

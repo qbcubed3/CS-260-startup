@@ -182,14 +182,11 @@ async function submitSurvey() {
     var newDay = {}
     var key = "";
     var checks = document.getElementById("checkboxes").getElementsByTagName('input');
-    console.log(checks);
     for(i=0; i < checks.length; i++){
-        console.log(checks[i])
         key = checks[i].id;
         newDay[key] = checks[i].checked;
     }
     newDay['happiness'] = document.getElementById('happinessRange').value;
-    console.log("adding score");
     const data = {
         auth: localStorage.getItem("auth"),
         scores: newDay
@@ -221,14 +218,12 @@ async function randomJoke() {
                 const punchline = data.punchline;
                 document.getElementById("setup").textContent = setup;
                 document.getElementById("punchline").textContent= punchline;
-                console.log(setup + " : " + punchline);
             })      
     }
     catch (error){
         console.log('bad request')
         return;
     }
-    console.log(joke);
 }
 
 randomJoke();

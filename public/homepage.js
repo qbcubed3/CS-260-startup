@@ -10,14 +10,12 @@ async function randomJoke() {
                 const punchline = data.punchline;
                 document.getElementById("setup").textContent = setup;
                 document.getElementById("punchline").textContent= punchline;
-                console.log(setup + " : " + punchline);
             })      
     }
     catch (error){
         console.log('bad request')
         return;
     }
-    console.log(joke);
 }
 
 randomJoke();

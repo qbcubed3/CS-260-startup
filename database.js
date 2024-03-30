@@ -169,7 +169,6 @@ async function deleteItem(item, user){
 
 async function removeAuth(auth){
     const result = await auths.deleteOne({authToken: auth})
-     console.log("result: " + result);
     if (result.deletedCount === 0){
         return false;
     }
@@ -200,10 +199,8 @@ async function getScores(user){
     })
     let final = {};
     Object.entries(seen).forEach(([key, value]) =>{
-        console.log("seen: " + seen[key] + " happiness: " + happiness[key]);
         final[key] = happiness[key]/seen[key]
     })
-    console.log("final: " + final);
     return final;
 }
 

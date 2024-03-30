@@ -20,7 +20,6 @@ function peerProxy(httpServer) {
         const minute = current.getMinutes();
         if (hour === 19 && minute == 0){
             connections.forEach((c) =>{
-                console.log(c);
                 c.ws.send('Popup');
             })
         }
@@ -42,7 +41,6 @@ function peerProxy(httpServer) {
                     const data = JSON.parse(message);
                     const auth = data.user;
                     const user = await DB.checkAuth(auth);
-                    console.log(user);
                     if (!user){
                         return;
                     }

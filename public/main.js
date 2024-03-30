@@ -10,7 +10,6 @@ async function login() {
     var message;
     password.value = "";
     username.value = "";
-    console.log(username + password);
     try{
       const response = await fetch('/api/login',{
         method: 'POST',
@@ -51,14 +50,12 @@ async function randomJoke() {
                 const punchline = data.punchline;
                 document.getElementById("setup").textContent = setup;
                 document.getElementById("punchline").textContent= punchline;
-                console.log(setup + " : " + punchline);
             })      
     }
     catch (error){
         console.log('bad request')
         return;
     }
-    console.log(joke);
 }
 
 randomJoke();
