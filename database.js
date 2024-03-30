@@ -36,7 +36,9 @@ async function newAuth(user){
 }
 
 async function checkAuth(auth){
+    console.log("auth: " + auth);
     const thing = await auths.findOne({authToken: auth})
+    console.log("thing: " + thing)
         if (thing){
             return thing.username;
         }

@@ -1,4 +1,5 @@
 const {WebSocketServer} = require('ws');
+const DB = require("./database.js");
 const uuid = require('uuid');
 
 function peerProxy(httpServer) {
@@ -32,9 +33,28 @@ function peerProxy(httpServer) {
         connections.push(connection);
 
 
-        ws.on('message', (message) => {
-            if (message.data === 'pong'){
+        ws.on('message', async (message) => {
+            if (message === 'pong'){
                 connections.alive = true;
+            }
+            else{
+                try{
+                    const data = JSON.parse(message);
+                    const auth = data.user;
+                    const user = await DB.checkAuth(auth);
+                    console.log(user);
+                    if (!user){
+                        return;
+                    }
+                    const mes = data.message;
+                    const chatMessage = user + ": " + mes;
+                    connections.forEach((c) => {
+                        c.ws.send(chatMessage);
+                    })
+                }
+            catch (error){
+                console.log("not valid JSON");
+            }
             }
         });
 

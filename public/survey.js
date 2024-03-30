@@ -1,30 +1,34 @@
-var surveyItems = [
-    "Morning meditation",
-    "Worked out",
-    "Ate Breakfast",
-    "Talked to a Friend",
-    "Learned something new",
-    "Took a walk",
-    "Listened to music",
-    "Did a Hobby",
-    "Read a book",
-    "Wrote in a journal",
-    "Ate lunch",
-    "Took Breaks from Work",
-    "Disconnect from technology for a bit",
-    "Had coffee/tea",
-    "Did something creative",
-    "Help someone in need",
-    "Planned for future goals",
-    "Laughed or watched something funny",
-    "Attend a social event",
-    "Ate Dinner",
-    "Had restful sleep",
-    "Unplugged before bedtime"]
+var socket;
+createSocket();
+function createSocket(){
+    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+    socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+    socket.onopen = async () =>{
+        console.log("Websocket connection opened");
+    }
 
+    socket.onmessage = async (event) =>{
+        if (event.data === 'ping'){
+            socket.send('pong');
+        }
+        else{
+            const chatMessage = document.createElement('p');
+            chatMessage.textContent = event.data;
+            document.getElementById("chat-output").appendChild(chatMessage);
+        }
+    }
+
+    socket.onclose = async() => {
+        console.log("Websocket connection closed");
+    }
+}
+
+let surveyItems = [
+    "thing", "hey", "hello"
+]
 
 document.addEventListener('DOMContentLoaded', function() {
-    createList(surveyItems);
+    createList(surveyItems)
     var happinessRange = document.getElementById('happinessRange');
     var selectedHappiness = document.getElementById('selectedHappiness');
     happinessRange.addEventListener('input', updateValue);
@@ -249,4 +253,20 @@ async function logout(){
   }
   localStorage.removeItem("auth");
   console.log("logged out");
+}
+
+
+function sendMessage(){
+    const message = document.getElementById("message-input").value;
+    const auth = localStorage.getItem("auth");
+    if (auth === null){
+        document.getElementById("logged in").textContent = "Cannot chat while logged out";
+    }
+
+    const data = {
+        type: "chat",
+        user: localStorage.getItem("auth"),
+        message: message
+    }
+    socket.send(JSON.stringify(data));
 }
