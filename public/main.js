@@ -36,7 +36,7 @@ async function login() {
     }
     setTimeout(function () {
       document.getElementById("error").textContent = "Could not log you in. Bad Password";
-  }, 1000);
+  }, 500);
 }
 
 async function randomJoke() {
