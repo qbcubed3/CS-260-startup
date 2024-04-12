@@ -1,0 +1,29 @@
+{
+    "name": "startup-server",
+    "version": "1.0.0",
+    "description": "My startup with server endpoints",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/qbcubed3/startup.git"
+    },
+    "author": "Ben Christensen",
+    "license": "MIT",
+    "homepage": "https://github.com/qbcubed3/startup/blob/main/README.md",
+    "dependencies": {
+        "bcrypt": "^5.1.1",
+        "body-parser": "^1.20.2",
+        "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.2",
+        "mongodb": "^6.5.0",
+        "uuid": "^9.0.1",
+        "vite": "^5.2.8",
+        "ws": "^8.16.0"
+    },
+    "devDependencies": {
+        "@types/chart.js": "^2.9.41"
+    }
+}
