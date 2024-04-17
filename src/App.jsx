@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import './app.css'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
 
 import Header from './homepage/Header'
 import Navlist from './homepage/Navlist'
