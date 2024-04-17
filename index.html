@@ -1,62 +1,16 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <!-- Tell browsers not to scale the viewport automatically -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <link rel="icon" href="smiley.png">
-    <link rel="stylesheet" href="main.css">
-    <script src="main.js" defer></script>
-    <script src="popup.js" defer></script>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+
+    <title>Simon React</title>
   </head>
   <body>
-    <div class="popup-container" id="popup-container">
-      <div class="popup">
-        <p>Your survey is ready!</p>
-        <button class="close" id="close">Close</button>
-        <button class="goSurvey" id="goSurvey">Survey</button>
-      </div>
-    </div>
-    <header>
-      <div class="header">
-        <img src="smiley.png" width="50" height="50">
-        <h1>Happiness Tracker</h1>
-        <button id="logout">Logout</button>>
-      </div>
-    </header>
-    
-    <main>
-      <nav class="navigation">
-        <ul class="navlist">
-          <li><a href="index.html">Login</a></li>
-          <li><a href="survey.html"> Daily Survey! </a></li>
-          <li><a href="homepage.html">Homepage</a></li>
-          <li><a href="stats.html">View your Stats</a></li>
-        </ul>
-      </nav>
-      <div class="login">
-        <h2> Login: </h2>
-        <label for="username">Username: </label>
-        <input type="text" id="username" name="username" placeholder="Text">
-
-        <label for="password"><br>Password:&nbsp;</label>
-        <input type="text" id="password" name="password" placeHolder="Text">
-
-        <br>
-        <button class="my-button" id="login">Login/Register</button>
-        <p id="error"></p>
-      </div>
-    </main>
-
-    <footer>
-      <div> Made by Ben Christensen</div>
-      <a href="https://github.com/qbcubed3/startup">My Github</a>
-      <br>
-      <img src="smiley.png" alt="you when you use my website" width="75" height="75">
-      <hr>
-      <p id="setup"></p>
-      <p id="punchline"></p>
-    </footer>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/index.jsx"></script>
   </body>
-
 </html>
